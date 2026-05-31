@@ -1,0 +1,6 @@
+\contentsline {figure}{\numberline {2.1}{\ignorespaces 当前工作流位移场残差模型的生成器与判别器结构。上半部分为三维 U 形生成器，下半部分为两尺度块级判别器；三维块颜色表示卷积、池化、上采样、复制或输出投影模块，灰色箭头表示跳跃连接。}}{7}{figure.caption.16}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces 当前工作流速度场残差模型的生成器与判别器结构。上半部分为以 $[\boldsymbol {v}_{\rm ZA},\boldsymbol {\mitPsi }_{\rm final}]$ 为条件的三维 U 形生成器，下半部分为两尺度块级判别器。}}{8}{figure.caption.17}%
+\let \contentsline \ttl@gobblecontents 
+\contentsline {figure}{\numberline {A.1}{\ignorespaces 附录中的图片示例}}{18}{figure.caption.18}%
+\contentsfinish 
+\contentsfinish 

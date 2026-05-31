@@ -1,0 +1,40 @@
+{
+  "latex-workshop.view.pdf.viewer": "tab",
+  "latex-workshop.latex.autoBuild.run": "onSave",
+  "latex-workshop.latex.outDir": "%DIR%",
+  "latex-workshop.latex.tools": [
+    {
+      "name": "thuthesis-ins",
+      "command": "xetex",
+      "args": [
+        "thuthesis.ins"
+      ]
+    },
+    {
+      "name": "thuthesis-latexmk",
+      "command": "latexmk",
+      "args": [
+        "-xelatex",
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "%DOC%"
+      ]
+    }
+  ],
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "thuthesis: ins + latexmk",
+      "tools": [
+        "thuthesis-ins",
+        "thuthesis-latexmk"
+      ]
+    },
+    {
+      "name": "thuthesis: latexmk only",
+      "tools": [
+        "thuthesis-latexmk"
+      ]
+    }
+  ]
+}

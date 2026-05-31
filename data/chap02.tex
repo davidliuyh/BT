@@ -1,149 +1,430 @@
-% !TEX root = ../thuthesis-example.tex
+% !TEX root = ../thesis.tex
 
-\chapter{图表示例}
+\chapter{方法}
 
-\section{插图}
+\section{工作流总述}
 
-图片通常在 \env{figure} 环境中使用 \cs{includegraphics} 插入，如图~\ref{fig:example} 的源代码。
-建议矢量图片使用 PDF 格式，比如数据可视化的绘图；
-照片应使用 JPG 格式；
-其他的栅格图应使用无损的 PNG 格式。
-注意，LaTeX 不支持 TIFF 格式；EPS 格式已经过时。
+我们的工作流采用尺度分离的思想：在大尺度上，微扰论仍然适用，因此使用 ZA（Zel'dovich Approximation）提供位移场和速度场的大尺度信息；在小尺度上，引力非线性效应严重，因此通过神经网络学习目标结果与大尺度结果之间的残差，用于补全小尺度结构。
 
-\begin{figure}
+第一步，我们使用 ZA 进行大尺度结构生成。ZA 是拉格朗日微扰论的一阶近似，通过输入线性功率谱和宇宙学，可以计算出每个粒子的位移和速度。
+ZA 的物理基础是线性引力演化，因此在大尺度上能够较好地保留结构信息；但在小尺度上，ZA 无法捕捉非线性引力效应，导致预测的结构过于平滑，无法准确反映 N 体模拟中的团块、丝状结构和空洞等非线性特征。
+特别是ZA 会导致所谓“壳层穿越”问题——即小尺度上粒子本应互相绕转并维里化的过程由于近似方法对小尺度预测不足导致粒子轨迹交叉，使预测得到的小尺度结构较为模糊。
+
+因此，我们第二步使用 WGAN-GP 神经网络进行纠偏。考虑到显存限制、推理速度要求以及宇宙学模拟需要扩展到大体积的需求，我们将整个模拟盒子切割成小块，训练神经网络学习从 ZA 基准位移场到 N 体位移残差的映射。
+对于速度场，我们使用另一个 WGAN-GP 神经网络进行纠偏，输入是 ZA 基准速度场与位移推理结果的结合，输出是速度残差。通过这种方式，网络可以同时利用速度场的线性大尺度信息和位移场中已经恢复出的非线性结构信息，从而更准确地补全小尺度速度结构。
+值得一提的是，在最小尺度下由于维里化的存在，N体模拟中的粒子位置和速度也具有较强的随机性，因此我们不要求神经网络完全恢复每个粒子的位移和速度，而是让网络学习在统计意义上尽可能地接近 N 体结果的残差分布，
+从而补全小尺度结构的统计特征。
+
+在推理阶段，将 ZA 基准位移场切块后输入网络，得到残差预测，再将残差重新组合成大体积结果，对推理得到的位移残差场施加高通滤波，
+并与 ZA 位移场相加作为最终位移场输出，减小由于从小体积拼接回大体积导致的大尺度不稳定性，再将该位移场赋给每个粒子得到粒子位移。
+对于速度场，采用类似的切块和回填方式，只不过神经网络的输入不再是单独的 ZA 速度场，而是 ZA 基准速度场与上一步推理得到的最终位移场的结合。网络输出为速度残差，
+由于ZA速度场大尺度并不如位移场那样可靠，因此当前推理阶段不再对速度残差施加高通滤波，而是直接与 ZA 基准速度场相加得到最终速度场。
+
+\section{模拟参考样本概述}
+
+为了验证工作流的可行性，具体实验中我们使用 Quijote 数据集的低精度 N 体模拟作为参考样本。每个模拟盒子边长为 $1\,\mathrm{Gpc}$，粒子数为 $256^3$，对应平坦 $\Lambda$CDM 宇宙学，宇宙学参数为 $\Omega_b = 0$、$\Omega_m = 0.3175$、$h = 0.6711$、$\sigma_8 = 0.834$、$A_s = 2.13 \times 10^{-9}$、$n_s = 0.9624$。其中 \(\Omega_b\) 和 \(\Omega_m\) 分别为重子物质与总物质密度参数，\(h\) 为无量纲哈勃常数，\(\sigma_8\) 为 \(8\,h^{-1}\mathrm{Mpc}\) 尺度上的线性密度扰动均方根，\(A_s\) 为原初标量扰动振幅，\(n_s\) 为原初标量谱指数。
+
+\section{大尺度结构生成}
+
+我们使用 ZA 作为大尺度基准。粒子采样位置 $\boldsymbol{q}$（粒子并非放在格点上，而是采用更均匀的采样方式）以及拉格朗日微扰论一阶位移场 $\Psi_1(\boldsymbol{x}, z = 127)$ 通过 2LPTic 代码生成，
+并保证与 Quijote 数据集的初始条件保持完全一致。若已知某高红移$z_i$处被线性理论良好计算的一阶位移场$ \Psi_1(\boldsymbol{x}, z_i)$，
+ZA估计红移$z$处的位移场和速度场为：
+
+\begin{align}
+  \Psi_\mathrm{ZA}(\boldsymbol{x}, z) =& \frac{D(z)}{D(z_i)} \, \Psi_1(\boldsymbol{x}, z_i),\\
+  \boldsymbol{v}_\mathrm{ZA}(\boldsymbol{x}, z) =& D(z)f(z)H(z)\frac{d \Psi_1(\boldsymbol{x}, z)}{d{D(z)}}.
+\end{align}
+
+其中 \(z_i\) 为初始红移，在本文中固定为 \(127\)；\(\boldsymbol{v}_\mathrm{ZA}\) 为 ZA 速度场；\(D(z)\) 为线性生长因子，\(f(z)=d\ln D/d\ln a\) 为生长率，\(a\) 为尺度因子，\(H(z)\) 为哈勃参数。
+对于粒子位移，我们把 ZA 位移场 $\Psi_\mathrm{ZA}(\boldsymbol{x}, z)$ 赋给每个粒子得到粒子位移，叠加上初始粒子采样位置得到每个
+粒子的ZA下的位置:
+\begin{equation}
+  \boldsymbol{x}(\boldsymbol{q}, z) = \boldsymbol{q} + \Psi_\mathrm{ZA}(\boldsymbol{q}, z) .
+\end{equation}
+对于粒子速度，我们把 ZA 速度场 $\boldsymbol{v}_\mathrm{ZA}(\boldsymbol{x}, z)$ 赋给每个粒子得到粒子速度。
+
+\section{小尺度结构纠偏}
+
+我们使用神经网络对于ZA基线进行纠偏，通过输入ZA基线预测残差的方式来补全小尺度结构。当前工作流中启用的两个残差网络分别针对位移场和速度场，且速度场网络以位移场推理结果作为条件输入。以下分别介绍两者的网络架构、损失函数、训练及推理细节。
+
+\subsection{网络架构}
+本文按照“输入表征、编码器--解码器主干、输出投影与对抗约束”的顺序介绍新工作流中当前启用的两个残差网络。二者都以三维局域窗口为基本样本：
+窗口大小为$24^3$，每个网格点上有多个物理分量的通道结构。位移网络的输入是 ZA 位移场的三通道局域窗口，输出是同尺寸的三通道残差位移场；速度网络的输入是 ZA 速度场与位移推理结果在通道维拼接得到的六通道局域窗口，输出是三通道速度残差场。
+
+\subsubsection{位移场残差网络}
+
+设 N 体模拟给出的目标位移场为 $\boldsymbol{\Psi}_{\mathrm{ref}}$，训练目标定义为
+\begin{equation}
+  \Delta\boldsymbol{\Psi}
+  = \boldsymbol{\Psi}_{\mathrm{ref}} - \boldsymbol{\Psi}_{\mathrm{ZA}} .
+\end{equation}
+因此，生成器输入是 $\boldsymbol{\Psi}_{\mathrm{ZA}}$ 的三通道局域窗口，输出是同尺寸的三通道残差位移场 $\Delta\boldsymbol{\Psi}$。这种残差表征把已经由 ZA 保持较好的大尺度模式留给解析基准项，只让神经网络集中学习非线性演化导致的小尺度修正。
+
+如图~\ref{fig:disp-unet} 上半部分所示，位移生成器采用四层三维 U 形编码器--解码器主干\citep{ronneberger2015u}。基础通道数由当前配置给定为 40，池化层数为 4。
+每个双卷积模块包含两层 $3\times3\times3$ 卷积，每层卷积后接批归一化和线性整流激活函数；每个下采样模块先进行 $2\times2\times2$ 最大池化，再执行双卷积模块。
+编码器的空间分辨率依次为 $24^3\rightarrow12^3\rightarrow6^3\rightarrow3^3\rightarrow1^3$，通道数依次为 
+$40\rightarrow80\rightarrow160\rightarrow320\rightarrow320$。解码器使用三线性插值上采样，每一级把上采样特征与同分辨率的编码器特征按通道拼接，再通过双卷积模块融合；
+解码端通道数依次回落为 $160\rightarrow80\rightarrow40\rightarrow40$。最后的 $1\times1\times1$ 卷积只做逐点通道投影，
+将 40 通道特征映射为三通道 $\Delta\boldsymbol{\Psi}$。最终与ZA基准位移场 $\boldsymbol{\Psi}_{\mathrm{ZA}}$ 通过滤波器结合得到最终位移场 
+$\boldsymbol{\Psi}_{\mathrm{final}}$，再赋给每个粒子得到粒子位移。
+
+\begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.5\linewidth]{example-image-a.pdf}
-  \caption*{国外的期刊习惯将图表的标题和说明文字写成一段，需要改写为标题只含图表的名称，其他说明文字以注释方式写在图表下方，或者写在正文中。}
-  \caption{示例图片标题}
-  \label{fig:example}
+  \resizebox{\textwidth}{!}{\input{figures/arch-disp.tex}}
+  \caption{当前工作流位移场残差模型的生成器与判别器结构。上半部分为三维 U 形生成器，下半部分为两尺度块级判别器；三维块颜色表示卷积、池化、上采样、复制或输出投影模块，灰色箭头表示跳跃连接。}
+  \label{fig:disp-unet}
 \end{figure}
 
-若图或表中有附注，采用英文小写字母顺序编号，附注写在图或表的下方。
-国外的期刊习惯将图表的标题和说明文字写成一段，需要改写为标题只含图表的名称，其他说明文字以注释方式写在图表下方，或者写在正文中。
+位移场模型采用 WGAN-GP 训练框架\citep{gulrajani2017improved}，并使用多尺度块级判别器\citep{wang2018high}，其结构画在图~\ref{fig:disp-unet} 的下半部分。
+位移判别器的输入为条件场与残差场在通道维的拼接 $[\boldsymbol{\Psi}_{\mathrm{ZA}}, \Delta\boldsymbol{\Psi}]$，总通道数为 6；
+真实分支使用 $\boldsymbol{\Psi}_{\mathrm{ref}}-\boldsymbol{\Psi}_{\mathrm{ZA}}$，生成分支使用位移生成器输出的残差。
+每个子判别器以 64 个基准通道开始，由步长为 2 的 $3\times3\times3$ 卷积块构成，除第一层外使用实例归一化，并以带泄露线性整流函数作为激活函数。
+当前配置包含两个尺度：细尺度判别器使用 2 个卷积块，更强调局域纹理和高频残差；粗尺度判别器使用 3 个卷积块，对更大感受野内的局部块级一致性进行约束。
+每个子判别器最后输出单通道真实性打分图。
+按可训练参数统计，位移生成器包含 \(15\,692\,403\) 个参数，两尺度位移判别器共包含 \(1\,358\,850\) 个参数；若将训练阶段的生成器和判别器共同计入，位移残差网络总参数量为 \(17\,051\,253\)。推理阶段只使用生成器，因此实际参与位移场推理的参数量为 \(15\,692\,403\)。
 
-如果一个图由两个或两个以上分图组成时，各分图分别以 (a)、(b)、(c)...... 作为图序，并须有分图题。
-推荐使用 \pkg{subcaption} 宏包来处理， 比如图~\ref{fig:subfig-a} 和图~\ref{fig:subfig-b}。
+\subsubsection{速度场残差网络}
 
-\begin{figure}
+速度场网络的条件输入不再是单一物理场，而是把 ZA 速度基准 $\boldsymbol{v}_{\mathrm{ZA}}$ 与位移推理得到的最终位移场 $\boldsymbol{\Psi}_{\mathrm{final}}$ 在通道维拼接：
+\begin{equation}
+  \boldsymbol{c}_{v}
+  = \left[\boldsymbol{v}_{\mathrm{ZA}},\,\boldsymbol{\Psi}_{\mathrm{final}}\right] .
+\end{equation}
+速度网络学习的目标为
+\begin{equation}
+  \Delta\boldsymbol{v}
+  = \boldsymbol{v}_{\mathrm{ref}} - \boldsymbol{v}_{\mathrm{ZA}}.
+\end{equation}
+这样，网络可以同时利用速度场的线性大尺度信息和位移场中已经恢复出的非线性结构信息。
+
+如图~\ref{fig:vel-unet} 上半部分所示，速度生成器与位移生成器使用同一类四层三维 U 形网络，但当前速度模型的基础通道数为 40。
+其编码器分辨率仍为 $24^3\rightarrow12^3\rightarrow6^3\rightarrow3^3\rightarrow1^3$，通道数为 $40\rightarrow80\rightarrow160\rightarrow320\rightarrow320$；
+解码器再经四级上采样恢复到 $24^3$，通道数为 $160\rightarrow80\rightarrow40\rightarrow40$。主要差异位于输入和输出头：
+第一层卷积接收 6 通道条件张量 $\boldsymbol{c}_{v}$，最后的 $1\times1\times1$ 卷积输出 3 通道速度残差 $\Delta\boldsymbol{v}$。
+速度训练代码还会对输入条件和目标残差进行向量组共享标准化：速度条件三通道共享一组统计量，位移条件三通道共享一组统计量，目标速度残差三通道共享一组统计量；这些均值和标准差写入模型，在推理阶段用同一统计量还原物理量纲。
+
+\begin{figure}[htbp]
   \centering
-  \subcaptionbox{分图 A\label{fig:subfig-a}}
-    {\includegraphics[width=0.35\linewidth]{example-image-a.pdf}}
-  \subcaptionbox{分图 B\label{fig:subfig-b}}
-    {\includegraphics[width=0.35\linewidth]{example-image-b.pdf}}
-  \caption{多个分图的示例}
-  \label{fig:multi-image}
+  \resizebox{\textwidth}{!}{\input{figures/arch-vel.tex}}
+  \caption{当前工作流速度场残差模型的生成器与判别器结构。上半部分为以 $[\boldsymbol{v}_{\rm ZA},\boldsymbol{\Psi}_{\rm final}]$ 为条件的三维 U 形生成器，下半部分为两尺度块级判别器。}
+  \label{fig:vel-unet}
 \end{figure}
 
+速度场模型同样采用 WGAN-GP 训练框架\citep{gulrajani2017improved}和多尺度块级判别器\citep{wang2018high}，其结构画在图~\ref{fig:vel-unet} 的下半部分。
+速度判别器的输入为条件场与速度残差在通道维的拼接 $[\boldsymbol{v}_{\mathrm{ZA}}, \boldsymbol{\Psi}_{\mathrm{final}}, \Delta\boldsymbol{v}]$，总通道数为 9；
+训练中实际送入判别器的是经过上述向量组共享标准化后的条件张量和速度残差张量。真实分支使用 $\boldsymbol{v}_{\mathrm{ref}}-\boldsymbol{v}_{\mathrm{ZA}}$，
+生成分支使用速度生成器输出的残差。判别器拓扑与位移场模型保持一致：每个子判别器以 64 个基准通道开始，由步长为 2 的 $3\times3\times3$ 卷积块构成，
+除第一层外使用实例归一化，并以带泄露线性整流函数作为激活函数。当前配置包含两个尺度，其中细尺度判别器使用 2 个卷积块以约束局域速度残差形态，
+粗尺度判别器使用 3 个卷积块以约束更大感受野内的块级速度结构一致性。每个子判别器最后输出单通道真实性打分图。
+按可训练参数统计，速度生成器包含 \(15\,695\,643\) 个参数，两尺度速度判别器共包含 \(1\,369\,218\) 个参数；若将训练阶段的生成器和判别器共同计入，速度残差网络总参数量为 \(17\,064\,861\)。推理阶段只使用生成器，因此实际参与速度场推理的参数量为 \(15\,695\,643\)。
 
+\subsection{损失函数}
+\subsubsection{位移场损失函数}
 
-\section{表格}
+位移场模型采用条件 WGAN-GP 目标，并在生成器端加入逐点 MSE、判别器特征匹配和多尺度平均 MSE。令
+\(\boldsymbol{c}_{\Psi}=\boldsymbol{\Psi}_{\mathrm{ZA}}\)，
+\(\boldsymbol{r}_{\Psi}=\Delta\boldsymbol{\Psi}\)，
+\(\hat{\boldsymbol{r}}_{\Psi}=G_{\Psi}(\boldsymbol{c}_{\Psi})\)。判别器包含细、粗两个尺度，记尺度集合为
+\(\mathcal{M}=\{\mathrm{fine},\mathrm{coarse}\}\)，第 $m$ 个子判别器的局部块打分图为
+\(D_{\Psi}^{(m)}(\boldsymbol{c}_{\Psi},\boldsymbol{r})\)，并用
+\(\langle\cdot\rangle\) 表示对局部块打分图所有空间位置取平均；
+\(\mathbb{E}[\cdot]\) 表示对训练样本、随机插值系数或小批量经验分布取期望，方括号只用于标明期望作用的完整表达式。因此
+\(\mathbb{E}\langle\cdot\rangle\) 表示先对单个样本的打分图做空间平均，再对样本分布或小批量取期望。当前训练代码中，位移判别器损失为
+\begin{equation}
+  \mathcal{L}_{D_{\Psi}}
+  =
+  \frac{1}{|\mathcal{M}|}
+  \sum_{m\in\mathcal{M}}
+  \left[
+    \mathbb{E}\left\langle
+      D_{\Psi}^{(m)}(\boldsymbol{c}_{\Psi},\hat{\boldsymbol{r}}_{\Psi})
+    \right\rangle
+    -
+    \mathbb{E}\left\langle
+      D_{\Psi}^{(m)}(\boldsymbol{c}_{\Psi},\boldsymbol{r}_{\Psi})
+    \right\rangle
+  \right]
+  + \lambda_{\mathrm{gp}}\mathcal{L}_{\mathrm{gp},\Psi},
+\end{equation}
+其中
+\begin{equation}
+  \mathcal{L}_{\mathrm{gp},\Psi}
+  =
+  \frac{1}{|\mathcal{M}|}
+  \sum_{m\in\mathcal{M}}
+  \mathbb{E}_{\tilde{\boldsymbol{r}}_{\Psi}}
+  \left[
+    \left(
+      \left\|
+        \nabla_{\tilde{\boldsymbol{r}}_{\Psi}}
+        D_{\Psi}^{(m)}(\boldsymbol{c}_{\Psi},\tilde{\boldsymbol{r}}_{\Psi})
+      \right\|_2
+      - 1
+    \right)^2
+  \right].
+\end{equation}
+\begin{equation}
+  \tilde{\boldsymbol{r}}_{\Psi}
+  =
+  \epsilon\boldsymbol{r}_{\Psi}
+  + (1-\epsilon)\hat{\boldsymbol{r}}_{\Psi},
+  \quad
+  \epsilon\sim U(0,1).
+\end{equation}
+其中 \(\epsilon\) 从 \(0\) 到 \(1\) 上的均匀分布 \(U(0,1)\) 中抽样，\(\tilde{\boldsymbol{r}}_{\Psi}\) 为真实残差与生成残差之间的插值样本。判别器损失的前两项是在条件 \(\boldsymbol{\Psi}_{\mathrm{ZA}}\) 给定时估计真实位移残差分布与生成残差分布之间的 Wasserstein 距离。其物理作用是要求生成的 \(\Delta\boldsymbol{\Psi}\) 不仅在数值上接近目标，而且在局域非高斯形态上接近 N 体演化产生的残差，例如壳层穿越后形成的高密度区域、丝状结构附近的各向异性位移修正以及空洞边界处的低振幅残差。梯度惩罚项 \(\mathcal{L}_{\mathrm{gp},\Psi}\) 则约束判别器关于残差场的梯度范数接近 1，使 WGAN 的距离估计满足 Lipschitz 条件；物理上，这避免判别器对少数极端小尺度结构给出过尖锐的响应，从而稳定生成器对连续位移场的学习。当前激活模型取梯度惩罚权重 \(\lambda_{\mathrm{gp}}=10\)。
 
-表应具有自明性。表中参数应标明量和单位的符号。
-为使表格简洁易读，均采用三线表（例如表~\ref{tab:three-line}）。
-必要时可加辅助线，三线表无法清晰表达时可采用其他格式。
+生成器损失写为
+\begin{equation}
+  \mathcal{L}_{G_{\Psi}}
+  =
+  \mathcal{L}_{\mathrm{adv},\Psi}
+  + 5\,\mathcal{L}_{\mathrm{pix},\Psi}
+  + 20\,\mathcal{L}_{\mathrm{fm},\Psi}
+  + \mathcal{L}_{\mathrm{ms},\Psi}.
+\end{equation}
+该总损失把“分布层面的真实性”和“逐点物理量的准确性”同时纳入训练。当前权重来自激活配置：逐点项权重为 5，特征匹配项权重为 20，多尺度平均项权重为 1。其中对抗项为
+\begin{equation}
+  \mathcal{L}_{\mathrm{adv},\Psi}
+  =
+  -\frac{1}{|\mathcal{M}|}
+  \sum_{m\in\mathcal{M}}
+  \mathbb{E}
+  \left\langle
+    D_{\Psi}^{(m)}(\boldsymbol{c}_{\Psi},\hat{\boldsymbol{r}}_{\Psi})
+  \right\rangle .
+\end{equation}
+对抗项 \(\mathcal{L}_{\mathrm{adv},\Psi}\) 直接推动生成器提高判别器对假残差的打分。它对应的物理含义是让生成残差落在 N 体位移残差的统计流形上，补充单纯 MSE 容易抹平的非线性细节，尤其是小尺度团块和丝状结构附近的尖锐位移修正。
+逐点项是三通道残差位移场的均方误差：
+\begin{equation}
+  \mathcal{L}_{\mathrm{pix},\Psi}
+  =
+  \mathbb{E}
+  \left[
+    \frac{1}{3N_{\mathrm{w}}^3}
+    \left\|
+      \hat{\boldsymbol{r}}_{\Psi}
+      -
+      \boldsymbol{r}_{\Psi}
+    \right\|_2^2
+  \right],
+  \qquad N_{\mathrm{w}}=24.
+\end{equation}
+逐点项 \(\mathcal{L}_{\mathrm{pix},\Psi}\) 约束每个网格点上三维位移残差的幅值和方向。它的物理作用是把粒子拉格朗日位移的局域修正锚定到 N 体结果，防止网络只生成统计上看似真实、但位置或方向发生偏移的结构。
+设 \(F_{\Psi,l}^{(m)}(\boldsymbol{c},\boldsymbol{r})\) 为第 $m$ 个子判别器第 $l$ 个中间特征张量，\(\mathcal{F}_{\Psi}\) 为所有尺度和层的特征集合，则特征匹配项为
+\begin{equation}
+  \mathcal{L}_{\mathrm{fm},\Psi}
+  =
+  \frac{1}{|\mathcal{F}_{\Psi}|}
+  \sum_{(m,l)\in\mathcal{F}_{\Psi}}
+  \mathbb{E}
+  \left[
+    \frac{1}{n_{m,l}}
+    \left\|
+      F_{\Psi,l}^{(m)}(\boldsymbol{c}_{\Psi},\hat{\boldsymbol{r}}_{\Psi})
+      -
+      F_{\Psi,l}^{(m)}(\boldsymbol{c}_{\Psi},\boldsymbol{r}_{\Psi})
+    \right\|_2^2
+  \right],
+\end{equation}
+其中 \(n_{m,l}\) 是对应特征张量的元素数，真实分支特征在实现中不参与反向传播。特征匹配项 \(\mathcal{L}_{\mathrm{fm},\Psi}\) 不直接比较最终判别器打分，而是比较判别器中间层看到的形态表征。它在物理上相当于要求真实残差和生成残差在局部纹理、边缘、团块边界和更粗尺度局部块结构上具有相近表示，可减少纯对抗训练中的振荡，并帮助保持宇宙大尺度结构的形态连续性。
 
-表序与表题置于表的上方。表单元格中的文字一般应居中书写（上下居中，左右居中），
-不宜左右居中书写的，可采取两端对齐的方式书写。
+多尺度平均项使用核宽集合
+\(\mathcal{S}=\{1,2,4,8\}\)，权重 \(w_s=1\)。记
+\(\mathcal{P}_s(\cdot)\) 为复制填充、步长为 1 的三维平均池化，且
+\(\mathcal{P}_1\) 为恒等映射，则
+\begin{equation}
+  \mathcal{L}_{\mathrm{ms},\Psi}
+  =
+  \sum_{s\in\mathcal{S}}
+  w_s\,
+  \mathbb{E}
+  \left[
+    \frac{1}{3N_{\mathrm{w}}^3}
+    \left\|
+      \mathcal{P}_s(\hat{\boldsymbol{r}}_{\Psi})
+      -
+      \mathcal{P}_s(\boldsymbol{r}_{\Psi})
+    \right\|_2^2
+  \right].
+\end{equation}
+多尺度项 \(\mathcal{L}_{\mathrm{ms},\Psi}\) 先对残差位移场做不同核宽的局域平均，再计算误差。核宽 \(s=1\) 对应原始网格残差，较大的 \(s\) 对应逐渐平滑后的中尺度位移修正。其物理意义是同时约束小尺度非线性位移和更相干的中尺度流动，避免网络只在单个网格点上拟合得好，却在多个网格尺度平均后产生系统偏差。
 
-\begin{table}
-  \centering
-  \caption{三线表示例}
-  \begin{tabular}{cc}
-    \toprule
-    文件名          & 描述                         \\
-    \midrule
-    thuthesis.dtx   & 模板的源文件，包括文档和注释 \\
-    thuthesis.cls   & 模板文件                     \\
-    thuthesis-*.bst & BibTeX 参考文献表样式文件    \\
-    \bottomrule
-  \end{tabular}
-  \label{tab:three-line}
-\end{table}
+\subsubsection{速度场损失函数}
 
-若表中有附注，采用英文小写字母顺序编号，附注写在表的下方。
-推荐使用 \pkg{threeparttable} 宏包。
+速度场模型仍使用条件 WGAN-GP 和多尺度块级判别器，但损失在标准化后的速度残差张量上计算。标准化采用三通道向量组共享统计量，以保持速度和位移向量分量的坐标轴对称性。令标准化条件为
+\(\tilde{\boldsymbol{c}}_{v}=[\tilde{\boldsymbol{v}}_{\mathrm{ZA}},\tilde{\boldsymbol{\Psi}}_{\mathrm{final}}]\)，
+标准化真实残差为
+\(\tilde{\boldsymbol{r}}_{v}\)，生成器输出为
+\(\hat{\tilde{\boldsymbol{r}}}_{v}=G_v(\tilde{\boldsymbol{c}}_{v})\)。速度判别器第 $m$ 个尺度的打分图记为
+\(D_v^{(m)}(\tilde{\boldsymbol{c}}_v,\tilde{\boldsymbol{r}})\)。判别器损失为
+\begin{equation}
+  \mathcal{L}_{D_v}
+  =
+  \frac{1}{|\mathcal{M}|}
+  \sum_{m\in\mathcal{M}}
+  \left[
+    \mathbb{E}\left\langle
+      D_v^{(m)}(\tilde{\boldsymbol{c}}_v,\hat{\tilde{\boldsymbol{r}}}_v)
+    \right\rangle
+    -
+    \mathbb{E}\left\langle
+      D_v^{(m)}(\tilde{\boldsymbol{c}}_v,\tilde{\boldsymbol{r}}_v)
+    \right\rangle
+  \right]
+  + \lambda_{\mathrm{gp}}\mathcal{L}_{\mathrm{gp},v},
+\end{equation}
+其中
+\begin{equation}
+  \mathcal{L}_{\mathrm{gp},v}
+  =
+  \frac{1}{|\mathcal{M}|}
+  \sum_{m\in\mathcal{M}}
+  \mathbb{E}_{\tilde{\boldsymbol{r}}_v^{\,\epsilon}}
+  \left[
+    \left(
+      \left\|
+        \nabla_{\tilde{\boldsymbol{r}}_v^{\,\epsilon}}
+        D_v^{(m)}(\tilde{\boldsymbol{c}}_v,\tilde{\boldsymbol{r}}_v^{\,\epsilon})
+      \right\|_2
+      - 1
+    \right)^2
+  \right].
+\end{equation}
+\begin{equation}
+  \tilde{\boldsymbol{r}}_v^{\,\epsilon}
+  =
+  \epsilon\tilde{\boldsymbol{r}}_v
+  + (1-\epsilon)\hat{\tilde{\boldsymbol{r}}}_v,
+  \quad
+  \epsilon\sim U(0,1).
+\end{equation}
+其中 \(\tilde{\boldsymbol{r}}_v^{\,\epsilon}\) 为标准化真实速度残差与标准化生成速度残差之间的插值样本。速度判别器损失与位移场形式相同，但判别对象变为在 \([\boldsymbol{v}_{\mathrm{ZA}},\boldsymbol{\Psi}_{\mathrm{final}}]\) 条件下的速度残差分布。它的物理作用是检查生成的 \(\Delta\boldsymbol{v}\) 是否与给定的大尺度 ZA 速度和已经恢复的非线性位移结构相容，例如是否在高密度汇聚区域给出合理的速度修正、是否在空洞和丝状结构附近保留正确的流动形态。梯度惩罚项 \(\mathcal{L}_{\mathrm{gp},v}\) 同样用于稳定判别器，使速度残差空间中的真实性判别不会退化为对少数高速度区域的过强响应。当前速度模型取梯度惩罚权重 \(\lambda_{\mathrm{gp}}=10\)。
 
-\begin{table}
-  \centering
-  \begin{threeparttable}[c]
-    \caption{带附注的表格示例}
-    \label{tab:three-part-table}
-    \begin{tabular}{cc}
-      \toprule
-      文件名                 & 描述                         \\
-      \midrule
-      thuthesis.dtx\tnote{a} & 模板的源文件，包括文档和注释 \\
-      thuthesis.cls\tnote{b} & 模板文件                     \\
-      thuthesis-*.bst        & BibTeX 参考文献表样式文件    \\
-      \bottomrule
-    \end{tabular}
-    \begin{tablenotes}
-      \item [a] 可以通过 xelatex 编译生成模板的使用说明文档；
-        使用 xetex 编译 \file{thuthesis.ins} 时则会从 \file{.dtx} 中去除掉文档和注释，得到精简的 \file{.cls} 文件。
-      \item [b] 更新模板时，一定要记得编译生成 \file{.cls} 文件，否则编译论文时载入的依然是旧版的模板。
-    \end{tablenotes}
-  \end{threeparttable}
-\end{table}
+速度生成器损失为
+\begin{equation}
+  \mathcal{L}_{G_v}
+  =
+  \mathcal{L}_{\mathrm{adv},v}
+  + 5\,\mathcal{L}_{\mathrm{pix},v}
+  + 20\,\mathcal{L}_{\mathrm{fm},v}
+  + \mathcal{L}_{\mathrm{ms},v}.
+\end{equation}
+速度生成器损失由四部分组成，分别约束速度残差的分布真实性、逐点幅值、判别器特征和多尺度相干性。其中
+\begin{equation}
+  \mathcal{L}_{\mathrm{adv},v}
+  =
+  -\frac{1}{|\mathcal{M}|}
+  \sum_{m\in\mathcal{M}}
+  \mathbb{E}
+  \left\langle
+    D_v^{(m)}(\tilde{\boldsymbol{c}}_v,\hat{\tilde{\boldsymbol{r}}}_v)
+  \right\rangle .
+\end{equation}
+对抗项 \(\mathcal{L}_{\mathrm{adv},v}\) 要求生成速度残差在判别器看来接近真实速度残差。物理上，它补充了速度场中由非线性引力演化带来的非高斯速度结构，例如团块附近的径向汇聚、丝状结构方向上的流动增强，以及 ZA 不能准确描述的小尺度速度扰动。
+速度逐点项按三个空间分量分别计算再加权平均。当前配置中
+\(w_x=w_y=w_z=1\)，因此
+\begin{equation}
+  \mathcal{L}_{\mathrm{pix},v}
+  =
+  \frac{1}{w_x+w_y+w_z}
+  \sum_{\alpha\in\{x,y,z\}}
+  w_{\alpha}\,
+  \mathbb{E}
+  \left[
+    \frac{1}{N_{\mathrm{w}}^3}
+    \left\|
+      \hat{\tilde{\boldsymbol{r}}}_{v,\alpha}
+      -
+      \tilde{\boldsymbol{r}}_{v,\alpha}
+    \right\|_2^2
+  \right].
+\end{equation}
+逐点项 \(\mathcal{L}_{\mathrm{pix},v}\) 约束每个网格点三个速度分量的残差。由于速度输入和目标在训练前已按向量组共享标准化，该项首先在无量纲标准化空间中平衡不同物理量的数值尺度；物理上，它保证最终恢复的速度场不仅有合理统计分布，也在局部速度幅值和方向上接近 N 体模拟。
+特征匹配项与位移场相同，只是判别器和输入张量替换为速度模型：
+\begin{equation}
+  \mathcal{L}_{\mathrm{fm},v}
+  =
+  \frac{1}{|\mathcal{F}_{v}|}
+  \sum_{(m,l)\in\mathcal{F}_{v}}
+  \mathbb{E}
+  \left[
+    \frac{1}{n_{m,l}}
+    \left\|
+      F_{v,l}^{(m)}(\tilde{\boldsymbol{c}}_v,\hat{\tilde{\boldsymbol{r}}}_v)
+      -
+      F_{v,l}^{(m)}(\tilde{\boldsymbol{c}}_v,\tilde{\boldsymbol{r}}_v)
+    \right\|_2^2
+  \right].
+\end{equation}
+特征匹配项 \(\mathcal{L}_{\mathrm{fm},v}\) 约束真实速度残差和生成速度残差在判别器中间层中的表示一致。对速度场而言，这一项特别对应速度残差与空间结构之间的联合形态：例如同一位移结构附近的速度流线、局域剪切和汇聚模式应在判别器特征空间中保持相似。
+多尺度平均项为
+\begin{equation}
+  \mathcal{L}_{\mathrm{ms},v}
+  =
+  \sum_{s\in\mathcal{S}}
+  w_s\,
+  \mathbb{E}
+  \left[
+    \frac{1}{3N_{\mathrm{w}}^3}
+    \left\|
+      \mathcal{P}_s(\hat{\tilde{\boldsymbol{r}}}_v)
+      -
+      \mathcal{P}_s(\tilde{\boldsymbol{r}}_v)
+    \right\|_2^2
+  \right],
+  \qquad
+  \mathcal{S}=\{1,2,4,8\},\quad w_s=1.
+\end{equation}
+多尺度项 \(\mathcal{L}_{\mathrm{ms},v}\) 约束不同平滑尺度下的速度残差。小核宽保留局域速度扰动，大核宽强调相干流、潮汐场诱导的较大尺度速度修正以及速度场的平滑性。该项可抑制逐点速度误差在空间平均后累积成系统性偏差。
 
-如某个表需要转页接排，可以“续表”的形式另页打印，格式同前，只需在每页表序前加“续”字即可。
-续表均应重复表头。
-推荐使用 \pkg{longtable} 宏包。
+当前激活的速度残差模型不启用显式排列一致性损失，也不启用旧版双头动量约束、速度散度谱约束或旋度像素/谱约束。坐标轴对称性主要通过训练阶段的三维向量旋转增强和推理阶段的旋转平均来处理。
 
-\begin{longtable}{cccc}
-    \caption{跨页长表格的表题}
-    \label{tab:longtable} \\
-    \toprule
-    表头 1 & 表头 2 & 表头 3 & 表头 4 \\
-    \midrule
-  \endfirsthead
-    \caption*{续表~\thetable\quad 跨页长表格的表题} \\
-    \toprule
-    表头 1 & 表头 2 & 表头 3 & 表头 4 \\
-    \midrule
-  \endhead
-    \bottomrule
-  \endfoot
-  Row 1  & & & \\
-  Row 2  & & & \\
-  Row 3  & & & \\
-  Row 4  & & & \\
-  Row 5  & & & \\
-  Row 6  & & & \\
-  Row 7  & & & \\
-  Row 8  & & & \\
-  Row 9  & & & \\
-  Row 10 & & & \\
-\end{longtable}
+\subsection{模型训练}
 
+训练样本由 Quijote 低精度模拟中 32 个模拟实现构成，其中第 0--15 个模拟用于位移场训练，第 16--31 个模拟用于速度场训练。速度场训练时需要推理得到的位移场作为条件输入，用不同于位移场训练的模拟可以避免速度场训练时的位移场输入来自位移模型训练集。
+训练样本块以周期窗口的方式从全盒子中划分得到。当前配置的有效块长为 20，边界填充为 2，因此模型实际输入窗口为 $24^3$，回填时使用中心 $20^3$ 有效区域。每个模拟的 $256^3$ 网格在三个维度上以步长 20 周期切块，得到总共 $13^3=2197$ 个训练样本块。
+位移训练中，输入样本块来自 $\boldsymbol{\Psi}_{\mathrm{ZA}}$，目标样本块来自 $\boldsymbol{\Psi}_{\mathrm{ref}}-\boldsymbol{\Psi}_{\mathrm{ZA}}$，不做旋转增强；速度训练中，先用当前位移模型在对应模拟上推理得到 $\boldsymbol{\Psi}_{\mathrm{final}}$，输入样本块来自 $[\boldsymbol{v}_{\mathrm{ZA}},\boldsymbol{\Psi}_{\mathrm{final}}]$，目标样本块来自 $\boldsymbol{v}_{\mathrm{Nbody}}-\boldsymbol{v}_{\mathrm{ZA}}$。速度训练数据缓存不物化旋转副本，而是在训练取样时对条件场中的两个三通道向量组和目标速度残差同步随机施加 24 个保向立方体旋转之一；所有向量场样本块都保持三个物理分量的通道结构，不做标量化处理。
 
+当前位移模型 \texttt{psi\_vec\_gan\_msavg\_1000} 训练 1000 轮，批量大小为 512；当前速度模型 \texttt{veldisp\_BVPSI\_gan\_msavg\_1000} 训练 635 轮，批量大小为 64。两个模型均使用 AdamW 优化器，生成器和判别器学习率均为 $10^{-4}$，并采用余弦退火调度至$10^{-7}$。判别器每个小批量更新一次，训练过程中按轮保存检查点。速度模型由于输入和输出量纲差异更大，会额外保存输入条件和速度残差的向量组共享均值、标准差，用于推理阶段一致地标准化和反标准化。
 
-\section{算法}
+\subsection{模型推理}
 
-算法环境可以使用 \pkg{algorithms} 或者 \pkg{algorithm2e} 宏包。
+对位移场，首先由 ZA 得到全盒子的 $\boldsymbol{\Psi}_{\mathrm{ZA}}$，再把它按照训练时相同的20步长切成$13^3=2197$个$24^3$的立方块输入窗口并送入位移生成器。
+生成器输出$24^3$大小的残差经过每边2像素的剪切得到$20^3$的有效区域，再回填到全盒子后，对预测残差逐分量施加傅里叶空间高通窗，
+\begin{equation}
+  \begin{aligned}
+    \boldsymbol{\Psi}_{\mathrm{final}}(\boldsymbol{x})
+    &=
+    \boldsymbol{\Psi}_{\mathrm{ZA}}(\boldsymbol{x})
+    + \mathcal{F}^{-1}
+      \left[
+        W_{\mathrm{HP}}(k)
+        \mathcal{F}\left[\Delta\boldsymbol{\Psi}_{\mathrm{pred}}\right](\boldsymbol{k})
+      \right](\boldsymbol{x}),\\
+    W_{\mathrm{HP}}(k)
+    &=
+    \frac{1}{1+\exp\left[-(k-k_{\mathrm{cut}})/\Delta k\right]},
+    \qquad
+    k=|\boldsymbol{k}|,\\
+    k_{\mathrm{cut}}
+    &=0.02,
+    \qquad
+    \Delta k=0.01 .
+  \end{aligned}
+\end{equation}
+其中 \(\Delta\boldsymbol{\Psi}_{\mathrm{pred}}\) 为位移网络在全盒子上拼接得到的预测残差，\(\mathcal{F}\) 和 \(\mathcal{F}^{-1}\) 分别表示三维傅里叶变换和逆变换；高通窗 \(W_{\mathrm{HP}}(k)\) 以 \(k_{\mathrm{cut}}\) 为过渡中心、\(\Delta k\) 为过渡宽度，且对三个矢量分量使用同一个各向同性权重。
+该步骤避免网络残差重新改写 ZA 已经可靠保留的大尺度模式。
 
-\renewcommand{\algorithmicrequire}{\textbf{输入：}\unskip}
-\renewcommand{\algorithmicensure}{\textbf{输出：}\unskip}
+速度推理在位移推理之后进行。程序先在全盒子上构造 ZA 速度场 $\boldsymbol{v}_{\mathrm{ZA}}$，再与 $\boldsymbol{\Psi}_{\mathrm{final}}$ 拼接成 6 通道条件场。随后按照与训练一致的有效块长 20 和边界填充 2 切成 $24^3$ 输入窗口，送入速度生成器；推理得到的残差窗口经过每边 2 像素的剪切得到 $20^3$ 有效区域，再回填到全盒子。
+当前配置在速度推理中启用旋转平均以尽可能地消除神经网络由于训练导致的对三个坐标轴方向的不一致性：
+对原始方向和两个循环坐标轴方向分别旋转完整条件场及其中的向量分量，完成切块推理后把残差旋回原坐标系，并对三次结果取平均得到 $\Delta\boldsymbol{v}_{\mathrm{pred}}$。当前速度场推理不对该速度残差施加上述高通滤波器，而是直接与 ZA 速度相加，最终速度场按
+\begin{equation}
+  \boldsymbol{v}_{\mathrm{final}}(\boldsymbol{x})
+  =
+  \boldsymbol{v}_{\mathrm{ZA}}(\boldsymbol{x})
+  + \Delta\boldsymbol{v}_{\mathrm{pred}}(\boldsymbol{x})
+\end{equation}
+恢复。由于位移和速度网络都只依赖局域窗口和周期拼接，这一推理过程可以直接扩展到完整的 $256^3$ 网格，并与后续的粒子赋值和统计量计算模块衔接。
 
-\begin{algorithm}
-  \caption{Calculate $y = x^n$}
-  \label{alg1}
-  \small
-  \begin{algorithmic}
-    \REQUIRE $n \geq 0$
-    \ENSURE $y = x^n$
-
-    \STATE $y \leftarrow 1$
-    \STATE $X \leftarrow x$
-    \STATE $N \leftarrow n$
-
-    \WHILE{$N \neq 0$}
-      \IF{$N$ is even}
-        \STATE $X \leftarrow X \times X$
-        \STATE $N \leftarrow N / 2$
-      \ELSE[$N$ is odd]
-        \STATE $y \leftarrow y \times X$
-        \STATE $N \leftarrow N - 1$
-      \ENDIF
-    \ENDWHILE
-  \end{algorithmic}
-\end{algorithm}
+\section{完整流程}
+完整流程推理用时（写在总结里？）

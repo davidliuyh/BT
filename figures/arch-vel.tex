@@ -1,0 +1,193 @@
+\begin{tikzpicture}[
+  font=\tiny,
+  >=Latex,
+  x=1cm,
+  y=1cm,
+  flow/.style={-Latex, semithick},
+  vflow/.style={-Latex, semithick, shorten <=5.5pt, shorten >=5.5pt},
+  skip/.style={-Latex, semithick, draw=gray!70},
+  title/.style={font=\bfseries\scriptsize, anchor=west},
+  blocklabel/.style={align=center, inner sep=0.35pt, fill=white, fill opacity=0.78, text opacity=1},
+  stagelabel/.style={align=center, inner sep=0.5pt, fill=white, fill opacity=0.82, text opacity=1},
+  detaillabel/.style={align=center, fill=white, inner sep=0.5pt}
+]
+
+\newcommand{\cube}[6]{%
+  \pgfmathsetmacro{\bx}{#1}
+  \pgfmathsetmacro{\byc}{#2}
+  \pgfmathsetmacro{\bw}{#3}
+  \pgfmathsetmacro{\bh}{#4}
+  \pgfmathsetmacro{\by}{\byc-\bh/2}
+  \pgfmathsetmacro{\bdx}{0.42*\bw}
+  \pgfmathsetmacro{\bdy}{0.42*\bw}
+  \draw[draw=#6, fill=#5, line width=0.32pt]
+    (\bx,\by) -- (\bx+\bw,\by) -- (\bx+\bw,\by+\bh) -- (\bx,\by+\bh) -- cycle;
+  \draw[draw=#6, fill=#5, line width=0.32pt]
+    (\bx+\bw,\by) -- (\bx+\bw+\bdx,\by+\bdy) --
+    (\bx+\bw+\bdx,\by+\bh+\bdy) -- (\bx+\bw,\by+\bh) -- cycle;
+  \draw[draw=#6, fill=#5, line width=0.32pt]
+    (\bx,\by+\bh) -- (\bx+\bdx,\by+\bh+\bdy) --
+    (\bx+\bw+\bdx,\by+\bh+\bdy) -- (\bx+\bw,\by+\bh) -- cycle;
+}
+
+\newcommand{\block}[9]{%
+  \cube{#1}{#2}{#3}{#4}{#5}{#6}
+  \pgfmathsetmacro{\bx}{#1}
+  \pgfmathsetmacro{\byc}{#2}
+  \pgfmathsetmacro{\bw}{#3}
+  \pgfmathsetmacro{\bh}{#4}
+  \pgfmathsetmacro{\bdx}{0.42*\bw}
+  \pgfmathsetmacro{\bdy}{0.42*\bw}
+  \coordinate (#8) at (\bx,\byc);
+  \coordinate (#9) at (\bx+\bw+\bdx,\byc);
+  \coordinate (#8top) at (\bx+0.5*\bw+0.5*\bdx,\byc+0.5*\bh);
+  \coordinate (#8bot) at (\bx+0.5*\bw+0.5*\bdx,\byc-0.5*\bh);
+  \coordinate (#9top) at (\bx+0.5*\bw+0.5*\bdx,\byc+0.5*\bh);
+  \coordinate (#9bot) at (\bx+0.5*\bw+0.5*\bdx,\byc-0.5*\bh);
+  \node[blocklabel, anchor=south] at
+    (\bx+0.5*\bw+0.5*\bdx+0.10,\byc+0.5*\bh+\bdy+0.04) {#7};
+}
+
+\newcommand{\conv}[7]{%
+  \block{#1}{#2}{#3}{#4}{cyan!20}{cyan!55!black}{#5}{#6}{#7}
+}
+\newcommand{\pool}[7]{%
+  \block{#1}{#2}{#3}{#4}{green!22}{green!50!black}{#5}{#6}{#7}
+}
+\newcommand{\copyblk}[7]{%
+  \block{#1}{#2}{#3}{#4}{gray!12}{gray!65}{#5}{#6}{#7}
+}
+\newcommand{\upblk}[7]{%
+  \block{#1}{#2}{#3}{#4}{pink!28}{red!55!black}{#5}{#6}{#7}
+}
+\newcommand{\outblk}[7]{%
+  \block{#1}{#2}{#3}{#4}{orange!28}{orange!70!black}{#5}{#6}{#7}
+}
+\newcommand{\io}[7]{%
+  \block{#1}{#2}{#3}{#4}{gray!10}{gray!60}{#5}{#6}{#7}
+}
+\newcommand{\stage}[5]{%
+  \node[stagelabel] at (#1,#4) {#5};
+}
+
+\node[title] at (0.05,1.66) {生成器 $G_v$};
+
+\io{0.45}{0.32}{0.22}{0.94}{$6$}{gin}{ginout}
+\node[detaillabel] at (0.57,-0.76) {$[\boldsymbol{v}_{\rm ZA},\boldsymbol{\Psi}_{\rm final}]$};
+\conv{1.05}{0.32}{0.22}{0.94}{$40$}{e0a}{e0aout}
+\conv{1.65}{0.32}{0.22}{0.94}{$40$}{e0b}{e0bout}
+
+\pool{1.65}{-1.35}{0.22}{0.74}{$40$}{p1}{p1out}
+\conv{2.25}{-1.35}{0.28}{0.74}{$80$}{e1a}{e1aout}
+\conv{3.00}{-1.35}{0.28}{0.74}{$80$}{e1b}{e1bout}
+
+\pool{3.00}{-2.85}{0.28}{0.58}{$80$}{p2}{p2out}
+\conv{3.75}{-2.85}{0.36}{0.58}{$160$}{e2a}{e2aout}
+\conv{4.70}{-2.85}{0.36}{0.58}{$160$}{e2b}{e2bout}
+
+\pool{4.70}{-4.15}{0.36}{0.46}{$160$}{p3}{p3out}
+\conv{5.65}{-4.15}{0.48}{0.46}{$320$}{e3a}{e3aout}
+\conv{6.75}{-4.15}{0.48}{0.46}{$320$}{e3b}{e3bout}
+
+\pool{6.75}{-5.30}{0.48}{0.34}{$320$}{p4}{p4out}
+\conv{7.75}{-5.30}{0.48}{0.34}{$320$}{ba}{baout}
+\conv{8.75}{-5.30}{0.48}{0.34}{$320$}{bb}{bbout}
+
+\copyblk{8.07}{-4.15}{0.48}{0.46}{$320$}{c3}{c3out}
+\upblk{8.75}{-4.15}{0.48}{0.46}{$320$}{u3}{u3out}
+\conv{9.75}{-4.15}{0.36}{0.46}{$160$}{d3a}{d3aout}
+\conv{10.70}{-4.15}{0.36}{0.46}{$160$}{d3b}{d3bout}
+
+\copyblk{10.19}{-2.85}{0.36}{0.58}{$160$}{c2}{c2out}
+\upblk{10.70}{-2.85}{0.36}{0.58}{$160$}{u2}{u2out}
+\conv{11.45}{-2.85}{0.28}{0.58}{$80$}{d2a}{d2aout}
+\conv{12.20}{-2.85}{0.28}{0.58}{$80$}{d2b}{d2bout}
+
+\copyblk{11.80}{-1.35}{0.28}{0.74}{$80$}{c1}{c1out}
+\upblk{12.20}{-1.35}{0.28}{0.74}{$80$}{u1}{u1out}
+\conv{12.80}{-1.35}{0.22}{0.74}{$40$}{d1a}{d1aout}
+\conv{13.40}{-1.35}{0.22}{0.74}{$40$}{d1b}{d1bout}
+
+\copyblk{13.09}{0.32}{0.22}{0.94}{$40$}{c0}{c0out}
+\upblk{13.40}{0.32}{0.22}{0.94}{$40$}{u0}{u0out}
+\conv{14.00}{0.32}{0.22}{0.94}{$40$}{d0a}{d0aout}
+\conv{14.60}{0.32}{0.22}{0.94}{$40$}{d0b}{d0bout}
+\outblk{15.30}{0.32}{0.20}{0.94}{$3$}{outc}{outcout}
+\io{15.95}{0.32}{0.20}{0.94}{$3$}{gout}{goutout}
+\node[detaillabel] at (16.05,-0.72) {$\Delta\boldsymbol{v}$};
+
+\stage{0.54}{1.03}{$6$}{-0.50}{$24^3$}
+\stage{1.58}{1.03}{$40,40$}{-0.50}{$24^3$}
+\stage{2.55}{-0.55}{$40,80,80$}{-2.05}{$12^3$}
+\stage{4.15}{-1.75}{$80,160,160$}{-3.45}{$6^3$}
+\stage{6.00}{-3.00}{$160,320,320$}{-4.75}{$3^3$}
+\stage{7.90}{-4.00}{$320,320,320$}{-5.78}{$1^3$}
+\stage{9.45}{-3.00}{$320,320,160,160$}{-4.75}{$3^3$}
+\stage{11.15}{-1.75}{$160,160,80,80$}{-3.45}{$6^3$}
+\stage{12.40}{-0.55}{$80,80,40,40$}{-2.05}{$12^3$}
+\stage{14.05}{1.03}{$40,40,40,40$}{-0.50}{$24^3$}
+\stage{15.90}{1.03}{$3,3$}{-0.50}{$24^3$}
+
+\draw[flow] (ginout) -- (e0a);
+\draw[vflow] (e0bbot) -- (p1top);
+\draw[vflow] (e1bbot) -- (p2top);
+\draw[vflow] (e2bbot) -- (p3top);
+\draw[vflow] (e3bbot) -- (p4top);
+\draw[vflow] (bbtop) -- (u3bot);
+\draw[vflow] (d3btop) -- (u2bot);
+\draw[vflow] (d2btop) -- (u1bot);
+\draw[vflow] (d1btop) -- (u0bot);
+\draw[flow] (d0bout) -- (outc);
+\draw[flow] (outcout) -- (gout);
+\draw[skip] (e3bout) -- (c3);
+\draw[skip] (e2bout) -- (c2);
+\draw[skip] (e1bout) -- (c1);
+\draw[skip] (e0bout) -- (c0);
+
+\node[title] at (0.05,-6.18) {多尺度判别器 $D_v$};
+\io{0.65}{-7.95}{0.24}{0.94}{$9$}{din}{dinout}
+\node[detaillabel, minimum width=2.00cm] at (1.05,-7.82)
+  {$[\boldsymbol{v}_{\rm ZA},\boldsymbol{\Psi}_{\rm final},\Delta\boldsymbol{v}]$};
+\stage{0.77}{-7.20}{$9$}{-8.52}{$24^3$}
+\coordinate (split) at (2.45,-7.72);
+\draw[flow] (dinout) -- (split);
+
+\block{3.25}{-7.28}{0.28}{0.74}{purple!15}{purple!60!black}{$64$}{df1}{df1out}
+\block{3.85}{-7.28}{0.36}{0.58}{purple!15}{purple!60!black}{$128$}{df2}{df2out}
+\outblk{4.55}{-7.28}{0.20}{0.58}{$1$}{df3}{df3out}
+\stage{4.06}{-6.50}{$64,128,1$}{-7.80}{$12^3,6^3,6^3$}
+\draw[flow] (split) |- (df1);
+\draw[flow] (df1out) -- (df2);
+\draw[flow] (df2out) -- (df3);
+
+\block{3.25}{-8.70}{0.28}{0.74}{purple!15}{purple!60!black}{$64$}{dc1}{dc1out}
+\block{3.85}{-8.70}{0.36}{0.58}{purple!15}{purple!60!black}{$128$}{dc2}{dc2out}
+\block{4.55}{-8.70}{0.48}{0.46}{purple!15}{purple!60!black}{$256$}{dc3}{dc3out}
+\outblk{5.40}{-8.70}{0.20}{0.46}{$1$}{dc4}{dc4out}
+\stage{4.48}{-7.90}{$64,128,256,1$}{-9.29}{$12^3,6^3,3^3,3^3$}
+\draw[flow] (split) |- (dc1);
+\draw[flow] (dc1out) -- (dc2);
+\draw[flow] (dc2out) -- (dc3);
+\draw[flow] (dc3out) -- (dc4);
+
+\node[align=left, anchor=west] at (6.55,-7.30) {细分支：2 个步长为 2 的判别卷积块};
+\node[align=left, anchor=west] at (6.55,-8.73) {粗分支：3 个步长为 2 的判别卷积块};
+
+\cube{0.90}{-10.35}{0.30}{0.42}{cyan!20}{cyan!55!black}
+\node[anchor=west, align=left] at (1.48,-10.35)
+  {生成器卷积：$3{\times}3{\times}3$ 卷积+批归一化+ReLU\\两个连续卷积块组成双卷积模块};
+\cube{6.40}{-10.35}{0.30}{0.42}{green!22}{green!50!black}
+\node[anchor=west] at (6.98,-10.35) {池化：$2{\times}2{\times}2$ 最大池化};
+\cube{11.20}{-10.35}{0.30}{0.42}{pink!28}{red!55!black}
+\node[anchor=west] at (11.78,-10.35) {上采样：三线性插值};
+\cube{0.90}{-11.32}{0.30}{0.42}{gray!12}{gray!65}
+\node[anchor=west, align=left] at (1.48,-11.32)
+  {复制：编码器同分辨率特征\\与上采样块贴合表示通道拼接};
+\cube{6.40}{-11.32}{0.30}{0.42}{purple!15}{purple!60!black}
+\node[anchor=west, align=left] at (6.98,-11.32)
+  {判别卷积：$3{\times}3{\times}3,s=2$ 卷积+带泄露 ReLU\\第二层起加实例归一化};
+\cube{13.25}{-11.32}{0.30}{0.42}{orange!28}{orange!70!black}
+\node[anchor=west, align=left] at (13.83,-11.32)
+  {输出卷积：生成器 $1{\times}1{\times}1$\\判别器末层 $3{\times}3{\times}3,s=1$};
+
+\end{tikzpicture}
