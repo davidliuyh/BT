@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2025/dev/Debian) (preloaded format=xelatex 2026.5.21)  31 MAY 2026 21:54
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2025/dev/Debian) (preloaded format=xelatex 2026.5.21)  1 JUN 2026 17:34
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1394,45 +1394,47 @@ LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
 [3
 
 
-] (./thesis.lof)
-\tf@lof=\write7
-\openout7 = `thesis.lof'.
-
+] (./thesis.lof
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular(2)/m/n' will be
+(Font)              scaled to size 12.04628pt on input line 1.
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular(2)/m/n' will be
+(Font)              scaled to size 9.03471pt on input line 1.
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular(2)/m/n' will be
+(Font)              scaled to size 7.22777pt on input line 1.
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
+(Font)              scaled to size 12.0437pt on input line 1.
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
+(Font)              scaled to size 9.03278pt on input line 1.
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
+(Font)              scaled to size 7.22623pt on input line 1.
 
 
 [4
 
 
-] (./thesis.lot)
+])
+\tf@lof=\write7
+\openout7 = `thesis.lof'.
+
+
+
+[5] (./thesis.lot)
 \tf@lot=\write8
 \openout8 = `thesis.lot'.
 
  (./data/denotation.tex
 
-[5
+[6
 
 
 ]
-LaTeX Font Info:    Font shape `TU/XITSMath-Regular(2)/m/n' will be
-(Font)              scaled to size 12.04628pt on input line 31.
-LaTeX Font Info:    Font shape `TU/XITSMath-Regular(2)/m/n' will be
-(Font)              scaled to size 9.03471pt on input line 31.
-LaTeX Font Info:    Font shape `TU/XITSMath-Regular(2)/m/n' will be
-(Font)              scaled to size 7.22777pt on input line 31.
-LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
-(Font)              scaled to size 12.0437pt on input line 31.
-LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
-(Font)              scaled to size 9.03278pt on input line 31.
-LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
-(Font)              scaled to size 7.22623pt on input line 31.
 
-
-[6
+[7
 
 
 ])
 
-[7] (./data/chap01.tex
+[8] (./data/chap01.tex
 第1章
 
 
@@ -1452,102 +1454,88 @@ LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
 ]
 
 [5]
-
-LaTeX Warning: Reference `fig:disp-unet' on page 6 undefined on input line 63.
-
-
-Package natbib Warning: Citation `ronneberger2015u' on page 6 undefined on input line 63.
-
-(./figures/arch-disp.tex
+File: figures/architecture.pdf Graphic file (type pdf)
+<use figures/architecture.pdf>
+LaTeX Font Info:    Calculating math sizes for size <11.04124> on input line 53.
 LaTeX Font Info:    Font shape `TU/XITSMath-Regular(2)/m/n' will be
-(Font)              scaled to size 7.52892pt on input line 73.
+(Font)              scaled to size 11.04242pt on input line 53.
 LaTeX Font Info:    Font shape `TU/XITSMath-Regular(2)/m/n' will be
-(Font)              scaled to size 5.00053pt on input line 73.
-LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
-(Font)              scaled to size 7.52731pt on input line 73.
-LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
-(Font)              scaled to size 4.99947pt on input line 73.
+(Font)              scaled to size 7.72966pt on input line 53.
 LaTeX Font Info:    Font shape `TU/XITSMath-Regular(2)/m/n' will be
-(Font)              scaled to size 6.52505pt on input line 75.
+(Font)              scaled to size 5.5212pt on input line 53.
 LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
-(Font)              scaled to size 6.52367pt on input line 75.
-)
-
-Package natbib Warning: Citation `gulrajani2017improved' on page 6 undefined on input line 78.
-
-
-Package natbib Warning: Citation `wang2018high' on page 6 undefined on input line 78.
-
-
-LaTeX Warning: Reference `fig:disp-unet' on page 6 undefined on input line 78.
-
+(Font)              scaled to size 11.04005pt on input line 53.
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
+(Font)              scaled to size 7.728pt on input line 53.
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
+(Font)              scaled to size 5.52002pt on input line 53.
 
 
 [6]
 
-LaTeX Warning: Reference `fig:vel-unet' on page 7 undefined on input line 100.
-
-
-
-[7] (./figures/arch-vel.tex)
-LaTeX Font Info:    Calculating math sizes for size <11.04124> on input line 109.
-LaTeX Font Info:    Font shape `TU/XITSMath-Regular(2)/m/n' will be
-(Font)              scaled to size 11.04242pt on input line 109.
-LaTeX Font Info:    Font shape `TU/XITSMath-Regular(2)/m/n' will be
-(Font)              scaled to size 7.72966pt on input line 109.
-LaTeX Font Info:    Font shape `TU/XITSMath-Regular(2)/m/n' will be
-(Font)              scaled to size 5.5212pt on input line 109.
-LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
-(Font)              scaled to size 11.04005pt on input line 109.
-LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
-(Font)              scaled to size 7.728pt on input line 109.
-LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
-(Font)              scaled to size 5.52002pt on input line 109.
-
-
-Package natbib Warning: Citation `gulrajani2017improved' on page 8 undefined on input line 113.
-
-
-Package natbib Warning: Citation `wang2018high' on page 8 undefined on input line 113.
-
-
-LaTeX Warning: Reference `fig:vel-unet' on page 8 undefined on input line 113.
-
-
+[7]
 
 [8]
+Underfull \hbox (badness 10000) in paragraph at lines 92--94
+\TU/FandolSong(0)/m/n/12.045 其 中 对 抗 项 $[][] [] [][] [][] [][][][][][][][] [][][]$，|  逐 点 项 $[][] []
+ []
 
-[9]
+
+
+[9]) (./data/chap03.tex
 
 [10]
 
 [11]
-LaTeX Font Info:    Font shape `TU/texgyrecursor(0)/m/n' will be
-(Font)              scaled to size 12.99814pt on input line 388.
-
-
-[12]) (./data/chap03.tex
-
-[13]
 第3章
+File: figures/density_slice.png Graphic file (type bmp)
+<figures/density_slice.png>
+File: figures/PDF.png Graphic file (type bmp)
+<figures/PDF.png>
 
 
-[14
+[12
 
 ]
+File: figures/density_power.png Graphic file (type bmp)
+<figures/density_power.png>
 
-[15]) (./data/chap04.tex
+
+[13]
+File: figures/density_bispectrum.png Graphic file (type bmp)
+<figures/density_bispectrum.png>
+
+
+[14]
+File: figures/covariance.png Graphic file (type bmp)
+<figures/covariance.png>
+
+
+[15]
+File: figures/velocity_visual.png Graphic file (type bmp)
+<figures/velocity_visual.png>
+
 
 [16]
+
+[17]
+File: figures/velocity_power.png Graphic file (type bmp)
+<figures/velocity_power.png>
+) (./data/chap04.tex
+
+[18]
 第4章
 )
 \openout3 = `bu.aux'.
 
+ (./thesis.bbl
 
-No file thesis.bbl.
-(./data/appendix.tex (./bu.aux)
+[19
 
-[17
+]) (./data/appendix.tex (./bu.aux)
+
+[20
+
 
 ]
 附录 A
@@ -1556,29 +1544,15 @@ File: example-image-a.pdf Graphic file (type pdf)
 (./thesis-appendix-a.aux)
 \openout3 = `thesis-appendix-a.aux'.
 
+ (./thesis-appendix-a.bbl
 
+[21
 
-Package natbib Warning: Citation `dupont1974bone' on page 18 undefined on input line 57.
+]))
 
+[22] (./data/acknowledgements.tex (./bu.aux)) (./bu.aux)
 
-Package natbib Warning: Citation `zhengkaiqing1987' on page 18 undefined on input line 57.
-
-
-Package natbib Warning: Citation `dupont1974bone' on page 18 undefined on input line 58.
-
-
-Package natbib Warning: Citation `zhengkaiqing1987' on page 18 undefined on input line 58.
-
-No file thesis-appendix-a.bbl.
-)
-
-[18
-
-]
-
-[19] (./data/acknowledgements.tex (./bu.aux)) (./bu.aux)
-
-[20
+[23
 
 
 
@@ -1597,12 +1571,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 81--81
 \TU/FandolSong(0)/m/n/12.045 研 究 成 果 不 包 含 任 何 他 人 享 有 著 作 权 的 内 容。|  对 本 论 文 所 涉 及 的 研 究 工 作 做 出 贡
  []
 
-
-Package natbib Warning: There were undefined citations.
-
 (./bu.aux)
 
-[21
+[24
 
 
 ] (./thesis.aux (./bu.aux))
@@ -1610,29 +1581,16 @@ Package natbib Warning: There were undefined citations.
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2022/08/05>
  ***********
-
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-
-Package rerunfilecheck Warning: File `thesis.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `thesis.out':
-(rerunfilecheck)             Before: D01B2A7F98BEDB831B2020FD5FECB0D3;5563
-(rerunfilecheck)             After:  C0C10BF988798AF0158D826EF082EA35;5927.
+Package rerunfilecheck Info: File `thesis.out' has not changed.
+(rerunfilecheck)             Checksum: F2C11A27C68C511BC005BF97832364FF;6107.
  ) 
 Here is how much of TeX's memory you used:
- 43800 strings out of 475381
- 950655 string characters out of 5762518
- 1500185 words of memory out of 5000000
- 66037 multiletter control sequences out of 15000+600000
- 568303 words of font info for 176 fonts, out of 8000000 for 9000
+ 41765 strings out of 475381
+ 913471 string characters out of 5762518
+ 1365515 words of memory out of 5000000
+ 64016 multiletter control sequences out of 15000+600000
+ 566745 words of font info for 154 fonts, out of 8000000 for 9000
  265 hyphenation exceptions out of 8191
  106i,12n,126p,1434b,2790s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on thesis.pdf (30 pages).
+Output written on thesis.pdf (34 pages).
