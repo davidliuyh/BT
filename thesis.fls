@@ -418,12 +418,12 @@ INPUT data/chap02.tex
 INPUT ./figures/pipeline.pdf
 INPUT ./figures/pipeline.pdf
 INPUT ./figures/pipeline.pdf
+INPUT ./figures/architecture.pdf
+INPUT ./figures/architecture.pdf
+INPUT ./figures/architecture.pdf
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmmi10.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmmi7.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmmi5.tfm
-INPUT ./figures/architecture.pdf
-INPUT ./figures/architecture.pdf
-INPUT ./figures/architecture.pdf
 INPUT ./data/chap03.tex
 INPUT ./data/chap03.tex
 INPUT ./data/chap03.tex

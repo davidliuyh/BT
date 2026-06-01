@@ -48,7 +48,7 @@
 
 训练时，本文采用条件生成对抗网络（GAN）框架\citep{goodfellow2014generative}。GAN 由生成器 $G$ 和判别器 $D$ 组成：$G$ 根据条件 $\boldsymbol{c}$ 产生残差样本 $\hat{\boldsymbol{r}}$，$D$ 判断输入残差来自 N 体模拟还是来自生成器。两者交替优化，使生成残差不仅逐点接近真实残差，还在局域纹理、非线性团块和速度结构等统计特征上接近 N 体结果。
 
-标准 GAN 的目标与 Jensen--Shannon 散度相关，在高维分布重叠较少时容易出现判别器饱和和生成器梯度变弱的问题。WGAN 将 $D$ 解释为不输出概率的评论器（critic），并用 Wasserstein-1 距离衡量真实残差分布 $P_{\mathrm{r}}$ 与生成残差分布 $P_{\mathrm{g}}$ 的差异\citep{arjovsky2017wasserstein}。在给定条件 $\boldsymbol{c}$ 时，该距离可写为
+标准 GAN 的目标与 Jensen--Shannon 散度相关，在高维分布重叠较少时容易出现判别器饱和和生成器梯度变弱的问题。WGAN 将 $D$ 解释为不输出概率的评论器，并用 Wasserstein-1 距离衡量真实残差分布 $P_{\mathrm{r}}$ 与生成残差分布 $P_{\mathrm{g}}$ 的差异\citep{arjovsky2017wasserstein}。在给定条件 $\boldsymbol{c}$ 时，该距离可写为
 \begin{equation}
   W(P_{\mathrm{r}},P_{\mathrm{g}})=
   \sup_{\|D\|_{\mathrm{L}}\leq 1}
@@ -115,14 +115,14 @@ WGAN-GP 进一步用梯度惩罚（gradient penalty, GP）实现 1-Lipschitz 约
 \begin{equation}
   \mathcal{L}_{\mathrm{gp},\Psi} = \frac{1}{|\mathcal{M}|} \sum_{m\in\mathcal{M}} \mathbb{E}_{\tilde{\boldsymbol{r}}_{\Psi}} \left[ \left( \left\| \nabla_{\tilde{\boldsymbol{r}}_{\Psi}} D_{\Psi}^{(m)}(\boldsymbol{c}_{\Psi},\tilde{\boldsymbol{r}}_{\Psi}) \right\|_2 - 1 \right)^2 \right],
 \end{equation}
-且 $\tilde{\boldsymbol{r}}_{\Psi} = \epsilon\boldsymbol{r}_{\Psi} + (1-\epsilon)\hat{\boldsymbol{r}}_{\Psi}$，$\epsilon\sim U(0,1)$。梯度惩罚权重取 $\lambda_{\mathrm{gp}}=10$。
+\(\left\|\cdot\right\|_2\) 表示 $L_2$ 范数，且 $\tilde{\boldsymbol{r}}_{\Psi} = \epsilon\boldsymbol{r}_{\Psi} + (1-\epsilon)\hat{\boldsymbol{r}}_{\Psi}$，$\epsilon\sim U(0,1)$。梯度惩罚权重取 $\lambda_{\mathrm{gp}}=10$。
 
 生成器损失为：
 \begin{equation}
   \mathcal{L}_{G_{\Psi}} = \mathcal{L}_{\mathrm{adv},\Psi} + 5\,\mathcal{L}_{\mathrm{pix},\Psi} + 20\,\mathcal{L}_{\mathrm{fm},\Psi} + \mathcal{L}_{\mathrm{ms},\Psi}.
 \end{equation}
 其中对抗项和逐点项分别为
-\begin{align*}
+\begin{align}
   \mathcal{L}_{\mathrm{adv},\Psi}
    & = -\frac{1}{|\mathcal{M}|} \sum_{m\in\mathcal{M}}
   \mathbb{E} \left\langle D_{\Psi}^{(m)}(\boldsymbol{c}_{\Psi},\hat{\boldsymbol{r}}_{\Psi}) \right\rangle, \\
@@ -131,7 +131,7 @@ WGAN-GP 进一步用梯度惩罚（gradient penalty, GP）实现 1-Lipschitz 约
     \frac{1}{3N_{\mathrm{w}}^3}
     \left\| \hat{\boldsymbol{r}}_{\Psi} - \boldsymbol{r}_{\Psi} \right\|_2^2
     \right], \quad N_{\mathrm{w}}=24.
-\end{align*}
+\end{align}
 特征匹配项 $\mathcal{L}_{\mathrm{fm},\Psi}$ 比较判别器中间层特征，其作用是引导生成器生成更真实的局部结构。多尺度项 $\mathcal{L}_{\mathrm{ms},\Psi}$ 使用核宽集合 $\mathcal{S}=\{1,2,4,8\}$ 进行多尺度平均约束，等效于增加了对位移场的空间梯度的约束。
 
 \subsubsection{速度场损失函数}

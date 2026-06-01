@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2025/dev/Debian) (preloaded format=xelatex 2026.6.1)  1 JUN 2026 21:51
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2025/dev/Debian) (preloaded format=xelatex 2026.6.1)  1 JUN 2026 23:21
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1500,16 +1500,16 @@ File: figures/density_slice.png Graphic file (type bmp)
 ]
 File: figures/PDF.png Graphic file (type bmp)
 <figures/PDF.png>
+
+
+[14]
 File: figures/density_power.png Graphic file (type bmp)
 <figures/density_power.png>
 
 
-[14]
+[15]
 File: figures/density_bispectrum.png Graphic file (type bmp)
 <figures/density_bispectrum.png>
-
-
-[15]
 File: figures/covariance.png Graphic file (type bmp)
 <figures/covariance.png>
 
@@ -1524,25 +1524,27 @@ File: figures/velocity_visual.png Graphic file (type bmp)
 [18]
 File: figures/velocity_power.png Graphic file (type bmp)
 <figures/velocity_power.png>
-) (./data/chap04.tex
 
-[19]
+
+[19]) (./data/chap04.tex
+
+[20]
 第4章
 )
 \openout3 = `bu.aux'.
 
  (./thesis.bbl
 
-[20
+[21
 
 ])
 
-[21
+[22
 
 
 ] (./data/acknowledgements.tex (./bu.aux)) (./bu.aux)
 
-[22
+[23
 
 
 
@@ -1563,7 +1565,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 82--82
 
 
 
-[23
+[24
 
 
 ]
@@ -1581,7 +1583,7 @@ File: figures/scan-record.pdf Graphic file (type pdf)
 
 File: figures/scan-record.pdf Graphic file (type pdf)
 <use figures/scan-record.pdf, page 1>
-[24
+[25
 
 
 ]
@@ -1593,7 +1595,7 @@ File: figures/scan-record.pdf Graphic file (type pdf)
 
 File: figures/scan-record.pdf Graphic file (type pdf)
 <use figures/scan-record.pdf, page 2>
-[25
+[26
 
 ] (./bu.aux) (./thesis.aux (./bu.aux))
  ***********
@@ -1601,15 +1603,15 @@ LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2022/08/05>
  ***********
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 250F45F1F4250A9D6E50EABB210F4091;5401.
+(rerunfilecheck)             Checksum: 4A561FCEB98089DC111DD7768C8DF3F1;5551.
  ) 
 Here is how much of TeX's memory you used:
- 41693 strings out of 475381
- 909294 string characters out of 5762519
- 1362397 words of memory out of 5000000
- 63945 multiletter control sequences out of 15000+600000
+ 41697 strings out of 475381
+ 909363 string characters out of 5762519
+ 1362600 words of memory out of 5000000
+ 63949 multiletter control sequences out of 15000+600000
  567273 words of font info for 163 fonts, out of 8000000 for 9000
  265 hyphenation exceptions out of 8191
  106i,17n,126p,1434b,2790s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on thesis.pdf (35 pages).
+Output written on thesis.pdf (36 pages).
