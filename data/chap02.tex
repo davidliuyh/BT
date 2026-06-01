@@ -22,11 +22,11 @@
 
 \section{模拟参考样本概述}
 
-为验证工作流的可行性，实验中使用 Quijote 数据集的低精度 N 体模拟作为参考样本。每个模拟盒子边长为 $1\,\mathrm{Gpc}$，粒子数为 $256^3$，对应平坦 $\Lambda$CDM 宇宙学，宇宙学参数为 $\Omega_b = 0$、$\Omega_m = 0.3175$、$h = 0.6711$、$\sigma_8 = 0.834$、$A_s = 2.13 \times 10^{-9}$、$n_s = 0.9624$。其中 $\Omega_b$ 和 $\Omega_m$ 分别为重子物质与总物质密度参数，$h$ 为无量纲哈勃常数，$\sigma_8$ 为 $8\,h^{-1}\mathrm{Mpc}$ 尺度上的线性密度扰动均方根，$A_s$ 为原初标量扰动振幅，$n_s$ 为原初标量谱指数。
+为验证工作流的可行性，实验中使用 Quijote 数据集的低精度 N 体模拟作为参考样本\citep{villaescusa2020quijote}。每个模拟盒子边长为 $1\,\mathrm{Gpc}$，粒子数为 $256^3$，对应平坦 $\Lambda$CDM 宇宙学，宇宙学参数为 $\Omega_b = 0$、$\Omega_m = 0.3175$、$h = 0.6711$、$\sigma_8 = 0.834$、$A_s = 2.13 \times 10^{-9}$、$n_s = 0.9624$。其中 $\Omega_b$ 和 $\Omega_m$ 分别为重子物质与总物质密度参数，$h$ 为无量纲哈勃常数，$\sigma_8$ 为 $8\,h^{-1}\mathrm{Mpc}$ 尺度上的线性密度扰动均方根，$A_s$ 为原初标量扰动振幅，$n_s$ 为原初标量谱指数。
 
 \section{大尺度结构生成}
 
-我们使用 ZA 作为大尺度基准。粒子采样位置 $\boldsymbol{q}$（粒子并非放在格点上，而是采用更均匀的采样方式）以及拉格朗日微扰论一阶位移场 $\boldsymbol{\Psi}_1(\boldsymbol{x}, z = 127)$ 通过 2LPTic 代码生成，并与 Quijote 数据集的初始条件保持完全一致。若已知某高红移 $z_i$ 处被线性理论良好描述的一阶位移场 $\boldsymbol{\Psi}_1(\boldsymbol{x}, z_i)$，则 ZA 估计红移 $z$ 处的位移场和速度场为：
+我们使用 ZA 作为大尺度基准。粒子采样位置 $\boldsymbol{q}$（粒子并非放在格点上，而是采用更均匀的采样方式）以及拉格朗日微扰论一阶位移场 $\boldsymbol{\Psi}_1(\boldsymbol{x}, z = 127)$ 通过 2LPTic 代码生成，并与 Quijote 数据集的初始条件保持完全一致\citep{jenkins2010secondorder,villaescusa2020quijote}。若已知某高红移 $z_i$ 处被线性理论良好描述的一阶位移场 $\boldsymbol{\Psi}_1(\boldsymbol{x}, z_i)$，则 ZA 估计红移 $z$ 处的位移场和速度场为：
 \begin{align}
   \boldsymbol{\Psi}_{\mathrm{ZA}}(\boldsymbol{x}, z) & = \frac{D(z)}{D(z_i)} \, \boldsymbol{\Psi}_1(\boldsymbol{x}, z_i),     \\
   \boldsymbol{v}_{\mathrm{ZA}}(\boldsymbol{x}, z)    & = D(z)f(z)H(z)\frac{d \boldsymbol{\Psi}_1(\boldsymbol{x}, z)}{d D(z)}.

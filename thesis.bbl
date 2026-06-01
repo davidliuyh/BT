@@ -1,4 +1,4 @@
-\begin{thebibliography}{5}
+\begin{thebibliography}{23}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{#1}
 \expandafter\ifx\csname urlstyle\endcsname\relax\else
@@ -11,42 +11,199 @@
   \let\eprint\href
 \fi
 
+\bibitem[Adame et~al.(2025)]{adame2025desi}
+ADAME A~G, et~al.
+\newblock {DESI} 2024 {V}: Full-shape galaxy clustering from galaxies and
+  quasars\allowbreak[J/OL].
+\newblock Journal of Cosmology and Astroparticle Physics, 2025, 2025\allowbreak
+  (02): 021.
+\newblock DOI: \doi{10.1088/1475-7516/2025/02/021}.
+
+\bibitem[{Planck Collaboration} et~al.(2016)]{planck2016cosmological}
+{Planck Collaboration}, et~al.
+\newblock Planck 2015 results. {XIII}. cosmological
+  parameters\allowbreak[J/OL].
+\newblock Astronomy and Astrophysics, 2016, 594: A13.
+\newblock DOI: \doi{10.1051/0004-6361/201525830}.
+
+\bibitem[{Euclid Collaboration} et~al.(2020)]{euclid2020forecast}
+{Euclid Collaboration}, et~al.
+\newblock Euclid preparation. {VII}. forecast validation for {Euclid}
+  cosmological probes\allowbreak[J/OL].
+\newblock Astronomy and Astrophysics, 2020, 642: A191.
+\newblock DOI: \doi{10.1051/0004-6361/202038071}.
+
+\bibitem[Kitching et~al.(2015)Kitching, Heavens, and
+  Das]{kitching2015weaklensing}
+KITCHING T~D, HEAVENS A~F, DAS S.
+\newblock {3D} weak gravitational lensing of the {CMB} and
+  galaxies\allowbreak[J/OL].
+\newblock Monthly Notices of the Royal Astronomical Society, 2015,
+  449\allowbreak (3): 2205-2214.
+\newblock DOI: \doi{10.1093/mnras/stv334}.
+
+\bibitem[Springel et~al.(2021)Springel, Pakmor, Zier, and
+  Reinecke]{springel2021gadget4}
+SPRINGEL V, PAKMOR R, ZIER O, et~al.
+\newblock Simulating cosmic structure formation with the {GADGET}-4
+  code\allowbreak[J/OL].
+\newblock Monthly Notices of the Royal Astronomical Society, 2021,
+  506\allowbreak (2): 2871-2949.
+\newblock DOI: \doi{10.1093/mnras/stab1855}.
+
+\bibitem[Kitaura et~al.(2013)Kitaura and Hess]{kitaura2013alpt}
+KITAURA F~S, HESS S.
+\newblock Cosmological structure formation with augmented lagrangian
+  perturbation theory\allowbreak[J/OL].
+\newblock Monthly Notices of the Royal Astronomical Society: Letters, 2013,
+  435\allowbreak (1): L78-L82.
+\newblock DOI: \doi{10.1093/mnrasl/slt101}.
+
+\bibitem[Kitaura et~al.(2014)Kitaura, Yepes, and Prada]{kitaura2014patchy}
+KITAURA F~S, YEPES G, PRADA F.
+\newblock Modelling baryon acoustic oscillations with perturbation theory and
+  stochastic halo biasing\allowbreak[J/OL].
+\newblock Monthly Notices of the Royal Astronomical Society: Letters, 2014,
+  439\allowbreak (1): L21-L25.
+\newblock DOI: \doi{10.1093/mnrasl/slt172}.
+
+\bibitem[Chuang et~al.(2015)Chuang, Kitaura, Prada, Zhao, and
+  Yepes]{chuang2015ezmocks}
+CHUANG C~H, KITAURA F~S, PRADA F, et~al.
+\newblock {EZmocks}: Extending the {Zel'dovich} approximation to generate mock
+  galaxy catalogues with accurate clustering statistics\allowbreak[J/OL].
+\newblock Monthly Notices of the Royal Astronomical Society, 2015,
+  446\allowbreak (3): 2621-2628.
+\newblock DOI: \doi{10.1093/mnras/stu2301}.
+
+\bibitem[Jeong et~al.(2006)Jeong and Komatsu]{jeong2006perturbation}
+JEONG D, KOMATSU E.
+\newblock Perturbation theory reloaded: Analytical calculation of non-linearity
+  in baryonic oscillations in the real space matter power
+  spectrum\allowbreak[J/OL].
+\newblock The Astrophysical Journal, 2006, 651\allowbreak (2): 619-626.
+\newblock DOI: \doi{10.1086/507781}.
+
+\bibitem[Taruya et~al.(2018)Taruya, Nishimichi, and Jeong]{taruya2018grid}
+TARUYA A, NISHIMICHI T, JEONG D.
+\newblock Grid-based calculation for perturbation theory of large-scale
+  structure\allowbreak[J/OL].
+\newblock Physical Review D, 2018, 98\allowbreak (10): 103532.
+\newblock DOI: \doi{10.1103/PhysRevD.98.103532}.
+
+\bibitem[Carrasco et~al.(2014)Carrasco, Foreman, Green, and
+  Senatore]{carrasco2014eft}
+CARRASCO J~J~M, FOREMAN S, GREEN D, et~al.
+\newblock The effective field theory of large scale structures at two
+  loops\allowbreak[J/OL].
+\newblock Journal of Cosmology and Astroparticle Physics, 2014, 2014\allowbreak
+  (07): 057.
+\newblock DOI: \doi{10.1088/1475-7516/2014/07/057}.
+
+\bibitem[He et~al.(2019)He, Li, Feng, Ho, Ravanbakhsh, Chen, and
+  P{\'o}czos]{he2019learning}
+HE S, LI Y, FENG Y, et~al.
+\newblock Learning to predict the cosmological structure
+  formation\allowbreak[J/OL].
+\newblock Proceedings of the National Academy of Sciences, 2019, 116\allowbreak
+  (28): 13825-13832.
+\newblock DOI: \doi{10.1073/pnas.1821458116}.
+
+\bibitem[Oliveira et~al.(2020)Oliveira, Li, Villaescusa-Navarro, Ho, and
+  Spergel]{oliveira2020fast}
+OLIVEIRA R~A~D, LI Y, VILLAESCUSA-NAVARRO F, et~al.
+\newblock Fast and accurate non-linear predictions of universes with deep
+  learning\allowbreak[A/OL].
+\newblock 2020.
+\newblock DOI: \doi{10.48550/arXiv.2012.00240}.
+
+\bibitem[Jamieson et~al.(2023)Jamieson, Li, de~Oliveira, Villaescusa-Navarro,
+  Ho, and Spergel]{jamieson2023field}
+JAMIESON D, LI Y, DE~OLIVEIRA R~A, et~al.
+\newblock Field-level neural network emulator for cosmological {N}-body
+  simulations\allowbreak[J/OL].
+\newblock The Astrophysical Journal, 2023, 952\allowbreak (2): 145.
+\newblock DOI: \doi{10.3847/1538-4357/acdb6c}.
+
+\bibitem[Jamieson et~al.(2024)Jamieson, Li, Villaescusa-Navarro, Ho, and
+  Spergel]{jamieson2024field}
+JAMIESON D, LI Y, VILLAESCUSA-NAVARRO F, et~al.
+\newblock Field-level emulation of cosmic structure formation with cosmology
+  and redshift dependence\allowbreak[A/OL].
+\newblock 2024.
+\newblock DOI: \doi{10.48550/arXiv.2408.07699}.
+
+\bibitem[Kang et~al.(2026)Kang, Hu, Li, and Hamann]{kang2026tunes}
+KANG Y, HU B, LI D, et~al.
+\newblock {TUNeS}: Neural emulation of large-scale structure across
+  redshifts\allowbreak[A/OL].
+\newblock 2026.
+\newblock DOI: \doi{10.48550/arXiv.2603.18165}.
+
+\bibitem[Villaescusa-Navarro et~al.(2020)Villaescusa-Navarro, Hahn, Massara,
+  et~al.]{villaescusa2020quijote}
+VILLAESCUSA-NAVARRO F, HAHN C, MASSARA E, et~al.
+\newblock The {Quijote} simulations\allowbreak[J/OL].
+\newblock The Astrophysical Journal Supplement Series, 2020, 250\allowbreak
+  (1): 2.
+\newblock DOI: \doi{10.3847/1538-4365/ab9d82}.
+
+\bibitem[Jenkins(2010)]{jenkins2010secondorder}
+JENKINS A.
+\newblock Second-order lagrangian perturbation theory initial conditions for
+  resimulations\allowbreak[J/OL].
+\newblock Monthly Notices of the Royal Astronomical Society, 2010,
+  403\allowbreak (4): 1859-1872.
+\newblock DOI: \doi{10.1111/j.1365-2966.2010.16259.x}.
+
 \bibitem[Goodfellow et~al.(2014)Goodfellow, Pouget-Abadie, Mirza, Xu,
   Warde-Farley, Ozair, Courville, and Bengio]{goodfellow2014generative}
-GOODFELLOW I, POUGET-ABADIE J, MIRZA M, et~al.
-\newblock Generative adversarial nets\allowbreak[C]//\allowbreak
-Advances in Neural Information Processing Systems: Vol.~27.
-\newblock 2014.
+GOODFELLOW I~J, POUGET-ABADIE J, MIRZA M, et~al.
+\newblock Generative adversarial networks: {arXiv}:1406.2661\allowbreak[M/OL].
+\newblock {arXiv}, 2014\allowbreak[2026-06-01].
+\newblock \url{http://arxiv.org/abs/1406.2661}.
+\newblock DOI: \doi{10.48550/arXiv.1406.2661}.
 
 \bibitem[Arjovsky et~al.(2017)Arjovsky, Chintala, and
   Bottou]{arjovsky2017wasserstein}
 ARJOVSKY M, CHINTALA S, BOTTOU L.
 \newblock Wasserstein generative adversarial
-  networks\allowbreak[C]//\allowbreak
-Proceedings of the 34th International Conference on Machine Learning.
-\newblock 2017: 214-223.
+  networks\allowbreak[C/OL]//\allowbreak
+{ICML}'17: Proceedings of the 34th International Conference on Machine Learning
+  - Volume 70.
+\newblock Sydney, {NSW}, Australia: {JMLR}.org, 2017:
+  214-223\allowbreak[2026-06-01].
+\newblock \url{https://dl.acm.org/doi/10.5555/3305381.3305404}.
 
 \bibitem[Gulrajani et~al.(2017)Gulrajani, Ahmed, Arjovsky, Dumoulin, and
   Courville]{gulrajani2017improved}
 GULRAJANI I, AHMED F, ARJOVSKY M, et~al.
-\newblock Improved training of wasserstein gans\allowbreak[J].
-\newblock Advances in Neural Information Processing Systems, 2017, 30.
+\newblock Improved training of wasserstein {GANs}\allowbreak[C/OL]//\allowbreak
+{NIPS}'17: Proceedings of the 31st International Conference on Neural
+  Information Processing Systems.
+\newblock Red Hook, {NY}, {USA}: Curran Associates Inc., 2017:
+  5769-5779\allowbreak[2026-06-01].
+\newblock \url{https://dl.acm.org/doi/10.5555/3295222.3295327}.
 
 \bibitem[Ronneberger et~al.(2015)Ronneberger, Fischer, and
   Brox]{ronneberger2015u}
 RONNEBERGER O, FISCHER P, BROX T.
 \newblock U-net: Convolutional networks for biomedical image
-  segmentation\allowbreak[C]//\allowbreak
-Medical Image Computing and Computer-Assisted Intervention -- MICCAI 2015.
-\newblock Cham: Springer, 2015: 234-241.
+  segmentation\allowbreak[C/OL]//\allowbreak
+NAVAB N, HORNEGGER J, WELLS W~M, et~al.
+\newblock Medical Image Computing and Computer-Assisted Intervention --
+  {MICCAI} 2015.
+\newblock Cham: Springer International Publishing, 2015: 234-241.
+\newblock DOI: \doi{10.1007/978-3-319-24574-4_28}.
 
 \bibitem[Wang et~al.(2018)Wang, Liu, Zhu, Tao, Kautz, and
   Catanzaro]{wang2018high}
 WANG T~C, LIU M~Y, ZHU J~Y, et~al.
 \newblock High-resolution image synthesis and semantic manipulation with
-  conditional gans\allowbreak[C]//\allowbreak
-Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern
-  Recognition.
-\newblock 2018: 8798-8807.
+  conditional {GANs}\allowbreak[C/OL]//\allowbreak
+2018 {IEEE}/{CVF} Conference on Computer Vision and Pattern Recognition.
+\newblock 2018: 8798-8807\allowbreak[2026-06-01].
+\newblock \url{https://ieeexplore.ieee.org/document/8579015/}.
+\newblock DOI: \doi{10.1109/CVPR.2018.00917}.
 
 \end{thebibliography}

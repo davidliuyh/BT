@@ -397,6 +397,10 @@ INPUT ./thesis.lof
 INPUT ./thesis.lof
 INPUT thesis.lof
 OUTPUT thesis.lof
+INPUT ./thesis.lot
+INPUT ./thesis.lot
+INPUT thesis.lot
+OUTPUT thesis.lot
 INPUT ./data/denotation.tex
 INPUT ./data/denotation.tex
 INPUT ./data/denotation.tex

@@ -1,19 +1,19 @@
 # Fdb version 4
-["bibtex thesis"] 1780326171.10196 "thesis.aux" "thesis.bbl" "thesis" 1780326177.54254 0
-  "./ref/refs.bib" 1780316292.26797 12127 676e7a207e32f8a73f4ca6e9f28844f2 ""
+["bibtex thesis"] 1780336421.13831 "thesis.aux" "thesis.bbl" "thesis" 1780336427.79636 0
+  "./ref/refs.bib" 1780336414.54319 21126 22cf6029cec0e45169e07f744a763b48 ""
   "./thuthesis-bachelor.bst" 1779341951.65037 46500 627fb9ef5c4dcc19071f4203d3ea5d7b ""
-  "bu.aux" 1780326172.29559 555 36a3a8fd7005176b9788ae926fa85840 "xelatex"
-  "thesis.aux" 1780326172.35959 7211 efa292ea2c724888e92ead3cdd5cc3ab "xelatex"
+  "bu.aux" 1780336422.57119 2209 afd18e24dd73d82d5ae5232943840b8b "xelatex"
+  "thesis.aux" 1780336422.62319 7737 78f591be4f85efb4110a9b714d04257e "xelatex"
   (generated)
   "thesis.bbl"
   "thesis.blg"
   (rewritten before read)
-["xdvipdfmx"] 1780326172.49153 "thesis.xdv" "thesis.pdf" "thesis" 1780326177.54386 0
-  "thesis.xdv" 1780326172.36358 526328 f5d5f3dfd9eaefb99fc3b0766ce611a6 "xelatex"
+["xdvipdfmx"] 1780336422.74552 "thesis.xdv" "thesis.pdf" "thesis" 1780336427.79778 0
+  "thesis.xdv" 1780336422.62719 594188 74f962e8cfbb76bdb5b8a1f9a9c841d0 "xelatex"
   (generated)
   "thesis.pdf"
   (rewritten before read)
-["xelatex"] 1780326171.13981 "thesis.tex" "thesis.xdv" "thesis" 1780326177.54266 0
+["xelatex"] 1780336421.21603 "thesis.tex" "thesis.xdv" "thesis" 1780336427.79644 0
   "/etc/texmf/web2c/texmf.cnf" 1779350610.56362 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1136768653 1528 f853c4d1b4e0550255e02831fdc8496f ""
@@ -209,16 +209,16 @@
   "/usr/share/texmf/tex/latex/CJK/CJKfntef.sty" 1634405102 12851 25a9b5cc006609feb5c9a20ce24a5392 ""
   "/usr/share/texmf/web2c/texmf.cnf" 1741904018 41538 c016915c1d51223b6dbbfe27341748a8 ""
   "/var/lib/texmf/web2c/xetex/xelatex.fmt" 1780307969 4246463 64d1c7276188b086536f542b226c34d8 ""
-  "bu.aux" 1780326172.29559 555 36a3a8fd7005176b9788ae926fa85840 "xelatex"
-  "data/abstract.tex" 1780308527.22027 4541 aa6877ac0934e422710ceacb9a6ee072 ""
+  "bu.aux" 1780336422.57119 2209 afd18e24dd73d82d5ae5232943840b8b "xelatex"
+  "data/abstract.tex" 1780335316.32323 4538 4888be44e73e5977330774ac6dd1e1c4 ""
   "data/acknowledgements.tex" 1780323305.96769 686 4ed384bec8cd226105a92312e1127948 ""
-  "data/chap01.tex" 1780321322.17577 7658 11c5501811104682cee9e89e5fcfb7da ""
-  "data/chap02.tex" 1780324341.48365 21986 9cf7828c26a52543d1265e3cf4f0eed1 ""
-  "data/chap03.tex" 1780326139.57159 14844 aea9cd78ed1796e5c0e5858c18a62c87 ""
-  "data/chap04.tex" 1780326139.70359 2752 5f9a400a034c7baf5e0570f39c4f41a0 ""
+  "data/chap01.tex" 1780335859.94721 8610 df7418c22bf1dd7d2d7993518c831996 ""
+  "data/chap02.tex" 1780334814.79925 22057 10903bcb38807cd75a38756c0f6be062 ""
+  "data/chap03.tex" 1780334850.50725 15511 ae2d8cb1858032291e30ba793dace9ee ""
+  "data/chap04.tex" 1780334815.05925 2748 27dd7b48673683a122de77f173de05f9 ""
   "data/denotation.tex" 1780322931.53571 1364 ea498bcf295a19ee97ca13c32f3c17ef ""
   "figures/PDF.png" 1780323815.61168 243895 36b73a141490e8d4cc86168758acee71 ""
-  "figures/architecture.pdf" 1780301493.82453 244539 3fed05628aa769da3481e8090861600f ""
+  "figures/architecture.pdf" 1780333858.3449 247174 62098bb42965b40cab07c63bb9bd5224 ""
   "figures/covariance.png" 1780323815.61567 678932 64fb0fb8fbe8f884c36e56a13e0dbb9a ""
   "figures/density_bispectrum.png" 1780323815.61967 516536 a9547ba6fa4a5aa605b1917f99d230f1 ""
   "figures/density_power.png" 1780323815.61967 198522 ead1e255843e3be3f81cccbe97b1f271 ""
@@ -227,12 +227,13 @@
   "figures/scan-record.pdf" 1779341951.63838 108783 f68405ddff87e220e49b664b894a6ff2 ""
   "figures/velocity_power.png" 1780323815.62768 560038 ca805ab2650201f70ab41da7a6d48161 ""
   "figures/velocity_visual.png" 1780323815.63567 1085695 760e131aa7199b6e037dacbae4d91c23 ""
-  "thesis.aux" 1780326172.35959 7211 efa292ea2c724888e92ead3cdd5cc3ab "xelatex"
-  "thesis.bbl" 1780326171.13159 1989 f8d4ce0135bd805771191065f6f5f21c "bibtex thesis"
-  "thesis.lof" 1780326172.36358 977 8d217cef2e2a52b0d2f4c8a6755f81d3 "xelatex"
-  "thesis.out" 1780326172.35959 5551 4a561fceb98089dc111dd7768c8df3f1 "xelatex"
-  "thesis.tex" 1780324015.29967 2370 7f7742fdcca23994122b9223c5d3158d ""
-  "thesis.toc" 1780326172.36358 2823 a73158d64b74eb6c64e3879b3082ce4d "xelatex"
+  "thesis.aux" 1780336422.62319 7737 78f591be4f85efb4110a9b714d04257e "xelatex"
+  "thesis.bbl" 1780336421.19119 8872 f8a97b5e0079fa115ae447e25a830d45 "bibtex thesis"
+  "thesis.lof" 1780336422.62719 977 d554750abe8799f94d37cf5ffcad58f0 "xelatex"
+  "thesis.lot" 1780336422.62719 141 b55656065c08ce2cadf42a20418e733d "xelatex"
+  "thesis.out" 1780336422.62719 5575 b8ce4940eeca67961151dbccf8c2d7e4 "xelatex"
+  "thesis.tex" 1780334814.55525 2370 888425e518db1711c4aaba000a34e86a ""
+  "thesis.toc" 1780336422.62719 2824 0e514a81a843f9773cf2a77c661ab578 "xelatex"
   "thu-fig-logo.pdf" 1779341951.65037 111420 f3b86208737d945fd374eed05bb4ecb5 ""
   "thu-text-logo.pdf" 1779341951.65037 22013 d4969d3ac906504fde13592ee2a452c2 ""
   "thusetup.tex" 1780307048.87632 5518 37db7f925ac57e3c60ba9b7d56b6a23e ""
@@ -242,6 +243,7 @@
   "thesis.aux"
   "thesis.lof"
   "thesis.log"
+  "thesis.lot"
   "thesis.out"
   "thesis.toc"
   "thesis.xdv"
