@@ -1,10 +1,10 @@
 \relax 
 \providecommand\hyper@newdestlabel[2]{}
 \providecommand*\HyPL@Entry[1]{}
-\bibstyle{thuthesis-numeric}
-\gdef\bu@bibstyle{thuthesis-numeric}
+\bibstyle{thuthesis-bachelor}
+\gdef\bu@bibstyle{thuthesis-bachelor}
 \HyPL@Entry{0<</S/A>>}
-\HyPL@Entry{2<</S/R>>}
+\HyPL@Entry{4<</S/R>>}
 \HyPL@Entry{10<</S/D>>}
 \pp@pagectr{footnote}{1}{11}{1}
 \@writefile{toc}{\contentsline {chapter}{\numberline {第1章}引言}{1}{chapter.1}\protected@file@percent }
@@ -18,70 +18,58 @@
 \pp@pagectr{footnote}{2}{14}{4}
 \@writefile{toc}{\contentsline {chapter}{\numberline {第2章}方法}{4}{chapter.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {2.1}工作流总述}{4}{section.2.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.1}{\ignorespaces 工作流示意图}}{5}{figure.caption.14}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:pipeline}{{2.1}{5}{工作流示意图}{figure.caption.14}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {2.2}模拟参考样本概述}{5}{section.2.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {2.3}大尺度结构生成}{5}{section.2.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.4}小尺度结构纠偏}{5}{section.2.4}\protected@file@percent }
+\citation{goodfellow2014generative}
+\citation{arjovsky2017wasserstein}
+\citation{gulrajani2017improved}
+\@writefile{toc}{\contentsline {section}{\numberline {2.4}小尺度结构纠偏}{6}{section.2.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.1}网络架构}{6}{subsection.2.4.1}\protected@file@percent }
 \citation{ronneberger2015u}
 \citation{gulrajani2017improved}
 \citation{wang2018high}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.1}网络架构}{6}{subsection.2.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.1.1}位移场残差网络}{6}{subsubsection.2.4.1.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2.1}{\ignorespaces 残差网络生成器与多尺度块级判别器结构示意图。上半部分：四层三维 U 形生成器，输入为 $24^3$ 局域窗口，经过编码、跳跃连接和解码后输出同尺寸残差场；图中 $C$ 表示随任务替换的条件输入通道数，位移场取 $C=3$，速度场取 $C=6$，二者残差输出均为三通道向量场。下半部分：两尺度块级判别器，输入为条件场与三通道残差场的拼接，通道数为 $C+3$；细分支使用两个步长为 2 的判别卷积块，粗分支使用三个步长为 2 的判别卷积块。}}{7}{figure.caption.16}\protected@file@percent }
-\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{fig:architecture}{{2.1}{7}{残差网络生成器与多尺度块级判别器结构示意图。上半部分：四层三维 U 形生成器，输入为 $24^3$ 局域窗口，经过编码、跳跃连接和解码后输出同尺寸残差场；图中 $C$ 表示随任务替换的条件输入通道数，位移场取 $C=3$，速度场取 $C=6$，二者残差输出均为三通道向量场。下半部分：两尺度块级判别器，输入为条件场与三通道残差场的拼接，通道数为 $C+3$；细分支使用两个步长为 2 的判别卷积块，粗分支使用三个步长为 2 的判别卷积块。}{figure.caption.16}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.1.2}速度场残差网络}{8}{subsubsection.2.4.1.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.2}损失函数}{9}{subsection.2.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.2.1}位移场损失函数}{9}{subsubsection.2.4.2.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.2.2}速度场损失函数}{9}{subsubsection.2.4.2.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.3}模型训练}{9}{subsection.2.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.4}模型推理}{10}{subsection.2.4.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.5}完整流程}{11}{section.2.5}\protected@file@percent }
-\pp@pagectr{footnote}{3}{22}{12}
-\@writefile{toc}{\contentsline {chapter}{\numberline {第3章}研究成果}{12}{chapter.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3.1}暗物质场单点统计}{12}{section.3.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces 第 32 个模拟实现的过密度切片视觉比较。左：N 体模拟参考结果，显示非线性演化后的团块、丝状结构和空洞；中：ZA 基准结果，小尺度结构更平滑、团块更弥散；右：新流程结果，在保留大尺度结构的同时恢复出更紧凑的小尺度团块和更丰富的细节。}}{12}{figure.caption.17}\protected@file@percent }
-\newlabel{fig:density-slice}{{3.1}{12}{第 32 个模拟实现的过密度切片视觉比较。左：N 体模拟参考结果，显示非线性演化后的团块、丝状结构和空洞；中：ZA 基准结果，小尺度结构更平滑、团块更弥散；右：新流程结果，在保留大尺度结构的同时恢复出更紧凑的小尺度团块和更丰富的细节。}{figure.caption.17}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces 过密度残差 $\mitdelta _{\mathrm {method}}-\mitdelta _{\mathrm {ref}}$ 的概率分布函数，其中参考场为 N 体模拟。曲线统计第 32--47 个模拟实现，阴影表示不同实现的 $1\mitsigma $ 散布；ZA、2LPT 和 ALPT 的残差分布尾部更宽，新流程的残差更集中于 0 附近，说明单点统计恢复更接近 N 体结果。}}{13}{figure.caption.18}\protected@file@percent }
-\newlabel{fig:density-pdf}{{3.2}{13}{过密度残差 $\delta _{\mathrm {method}}-\delta _{\mathrm {ref}}$ 的概率分布函数，其中参考场为 N 体模拟。曲线统计第 32--47 个模拟实现，阴影表示不同实现的 $1\sigma $ 散布；ZA、2LPT 和 ALPT 的残差分布尾部更宽，新流程的残差更集中于 0 附近，说明单点统计恢复更接近 N 体结果。}{figure.caption.18}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {3.2}暗物质场两点统计}{13}{section.3.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.3}{\ignorespaces 第 32--47 个模拟实现的暗物质功率谱比值 $P/P_{\mathrm {ref}}$，参考谱为 N 体模拟。曲线为不同实现的均值，阴影为 $1\mitsigma $ 散布，灰色虚线表示与 N 体参考完全一致；ZA、2LPT 和 ALPT 在小尺度逐渐低估功率，而新流程在接近 Nyquist 波数前整体保持在 1 附近。}}{14}{figure.caption.19}\protected@file@percent }
-\newlabel{fig:density-power}{{3.3}{14}{第 32--47 个模拟实现的暗物质功率谱比值 $P/P_{\mathrm {ref}}$，参考谱为 N 体模拟。曲线为不同实现的均值，阴影为 $1\sigma $ 散布，灰色虚线表示与 N 体参考完全一致；ZA、2LPT 和 ALPT 在小尺度逐渐低估功率，而新流程在接近 Nyquist 波数前整体保持在 1 附近。}{figure.caption.19}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {3.3}暗物质场三点统计}{14}{section.3.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.4}{\ignorespaces 第 32--47 个模拟实现的暗物质双谱比值 $B/B_{\mathrm {ref}}$，横轴为两波矢夹角 $\mittheta $，参考双谱为 N 体模拟，灰色虚线表示比值 1。左上：$k_1=0.05, k_2=0.10$；中上：$k_1=0.10, k_2=0.20$；右上：$k_1=0.20, k_2=0.40$；左下：$k_1=0.10, k_2=0.10$；中下：$k_1=0.20, k_2=0.20$；右下：$k_1=0.40, k_2=0.40$。红色实线的新流程在各构型中更接近 1，而微扰论基准在非线性尺度上的双谱幅度偏低。}}{15}{figure.caption.20}\protected@file@percent }
-\newlabel{fig:density-bispectrum}{{3.4}{15}{第 32--47 个模拟实现的暗物质双谱比值 $B/B_{\mathrm {ref}}$，横轴为两波矢夹角 $\theta $，参考双谱为 N 体模拟，灰色虚线表示比值 1。左上：$k_1=0.05, k_2=0.10$；中上：$k_1=0.10, k_2=0.20$；右上：$k_1=0.20, k_2=0.40$；左下：$k_1=0.10, k_2=0.10$；中下：$k_1=0.20, k_2=0.20$；右下：$k_1=0.40, k_2=0.40$。红色实线的新流程在各构型中更接近 1，而微扰论基准在非线性尺度上的双谱幅度偏低。}{figure.caption.20}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {3.4}暗物质功率谱协方差矩阵}{15}{section.3.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.5}{\ignorespaces 第 16--63 个模拟实现估计得到的暗物质功率谱协方差矩阵，采用线性 $k$ 分箱。左上：N 体参考功率谱协方差矩阵的 $\log _{10}|\mathrm {Cov}_{\mathrm {ref}}(P(k))|$；右上：新流程功率谱协方差矩阵的 $\log _{10}|\mathrm {Cov}_{\mathrm {final}}(P(k))|$；左下：新流程相对 N 体参考协方差矩阵的逐元相对差异；右下：ZA、ALPT、2LPT 和新流程的协方差对角元相对 N 体参考的比值。}}{16}{figure.caption.21}\protected@file@percent }
-\newlabel{fig:density-covariance}{{3.5}{16}{第 16--63 个模拟实现估计得到的暗物质功率谱协方差矩阵，采用线性 $k$ 分箱。左上：N 体参考功率谱协方差矩阵的 $\log _{10}|\mathrm {Cov}_{\mathrm {ref}}(P(k))|$；右上：新流程功率谱协方差矩阵的 $\log _{10}|\mathrm {Cov}_{\mathrm {final}}(P(k))|$；左下：新流程相对 N 体参考协方差矩阵的逐元相对差异；右下：ZA、ALPT、2LPT 和新流程的协方差对角元相对 N 体参考的比值。}{figure.caption.21}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {3.5}速度场视觉展示}{16}{section.3.5}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.6}{\ignorespaces 第 32 个模拟实现的速度模切片比较。左上：N 体模拟参考速度模 $|v|$，包含非线性小尺度速度结构；右上：ZA 基准速度模，整体更平滑，小尺度高速度团块不足；左下：新流程速度模，在小尺度结构上更接近 N 体模拟；右下：N 体模拟与新流程速度场之差的残差模 $|\mitDelta v|$，亮区对应尚未完全恢复的小尺度速度结构。}}{17}{figure.caption.22}\protected@file@percent }
-\newlabel{fig:velocity-visual}{{3.6}{17}{第 32 个模拟实现的速度模切片比较。左上：N 体模拟参考速度模 $|v|$，包含非线性小尺度速度结构；右上：ZA 基准速度模，整体更平滑，小尺度高速度团块不足；左下：新流程速度模，在小尺度结构上更接近 N 体模拟；右下：N 体模拟与新流程速度场之差的残差模 $|\Delta v|$，亮区对应尚未完全恢复的小尺度速度结构。}{figure.caption.22}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {3.6}速度场两点统计}{17}{section.3.6}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.7}{\ignorespaces 第 32--47 个模拟实现的速度场功率谱比值，参考谱为 N 体模拟。左上：速度散度功率谱比值 $P_{\mittheta \mittheta }/P_{\mittheta \mittheta ,\mathrm {ref}}$；右上：速度旋度模功率谱比值 $P_{|\nabla \times v|}/P_{|\nabla \times v|,\mathrm {ref}}$；左下：速度模功率谱比值 $P_{|v|}/P_{|v|,\mathrm {ref}}$；右下：三个速度分量功率谱比值 $P_{v_i v_i}/P_{v_i v_i,\mathrm {ref}}$。虚线为 ZA，实线为新流程，阴影为不同实现的 $1\mitsigma $ 散布，灰色虚线表示比值 1。}}{18}{figure.caption.23}\protected@file@percent }
-\newlabel{fig:velocity-power}{{3.7}{18}{第 32--47 个模拟实现的速度场功率谱比值，参考谱为 N 体模拟。左上：速度散度功率谱比值 $P_{\theta \theta }/P_{\theta \theta ,\mathrm {ref}}$；右上：速度旋度模功率谱比值 $P_{|\nabla \times v|}/P_{|\nabla \times v|,\mathrm {ref}}$；左下：速度模功率谱比值 $P_{|v|}/P_{|v|,\mathrm {ref}}$；右下：三个速度分量功率谱比值 $P_{v_i v_i}/P_{v_i v_i,\mathrm {ref}}$。虚线为 ZA，实线为新流程，阴影为不同实现的 $1\sigma $ 散布，灰色虚线表示比值 1。}{figure.caption.23}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.1.1}位移场残差网络}{7}{subsubsection.2.4.1.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.2}{\ignorespaces 残差网络结构}}{8}{figure.caption.15}\protected@file@percent }
+\newlabel{fig:architecture}{{2.2}{8}{残差网络结构}{figure.caption.15}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.1.2}速度场残差网络}{9}{subsubsection.2.4.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.2}损失函数}{10}{subsection.2.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.2.1}位移场损失函数}{10}{subsubsection.2.4.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.4.2.2}速度场损失函数}{10}{subsubsection.2.4.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.3}模型训练}{11}{subsection.2.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.4}模型推理}{11}{subsection.2.4.4}\protected@file@percent }
+\pp@pagectr{footnote}{3}{23}{13}
+\@writefile{toc}{\contentsline {chapter}{\numberline {第3章}研究成果}{13}{chapter.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.1}暗物质场单点统计}{13}{section.3.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces 过密度切片比较}}{13}{figure.caption.16}\protected@file@percent }
+\newlabel{fig:density-slice}{{3.1}{13}{过密度切片比较}{figure.caption.16}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces 过密度残差概率分布}}{14}{figure.caption.17}\protected@file@percent }
+\newlabel{fig:density-pdf}{{3.2}{14}{过密度残差概率分布}{figure.caption.17}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.2}暗物质场两点统计}{14}{section.3.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.3}{\ignorespaces 暗物质功率谱比值}}{15}{figure.caption.18}\protected@file@percent }
+\newlabel{fig:density-power}{{3.3}{15}{暗物质功率谱比值}{figure.caption.18}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.3}暗物质场三点统计}{15}{section.3.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.4}{\ignorespaces 暗物质双谱比值}}{16}{figure.caption.19}\protected@file@percent }
+\newlabel{fig:density-bispectrum}{{3.4}{16}{暗物质双谱比值}{figure.caption.19}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.4}暗物质功率谱协方差矩阵}{16}{section.3.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.5}{\ignorespaces 暗物质功率谱协方差矩阵}}{17}{figure.caption.20}\protected@file@percent }
+\newlabel{fig:density-covariance}{{3.5}{17}{暗物质功率谱协方差矩阵}{figure.caption.20}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.5}速度场视觉展示}{17}{section.3.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.6}{\ignorespaces 速度模切片比较}}{18}{figure.caption.21}\protected@file@percent }
+\newlabel{fig:velocity-visual}{{3.6}{18}{速度模切片比较}{figure.caption.21}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.6}速度场两点统计}{18}{section.3.6}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.7}{\ignorespaces 速度场功率谱比值}}{19}{figure.caption.22}\protected@file@percent }
+\newlabel{fig:velocity-power}{{3.7}{19}{速度场功率谱比值}{figure.caption.22}{}}
 \@input{bu.aux}
 \bibdata{ref/refs}
 \gdef\bu@bibdata{ref/refs}
-\pp@pagectr{footnote}{4}{29}{19}
-\@writefile{toc}{\contentsline {chapter}{\numberline {第4章}总结与展望}{19}{chapter.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{参考文献}{20}{section*.24}\protected@file@percent }
+\pp@pagectr{footnote}{4}{30}{20}
+\@writefile{toc}{\contentsline {chapter}{\numberline {第4章}总结与展望}{20}{chapter.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{参考文献}{21}{section*.23}\protected@file@percent }
 \ttl@writefile{toc}{\setcounter {tocdepth}{0}}
-\@writefile{lof}{\let\contentsline\ttl@gobblecontents}
-\@writefile{lot}{\let\contentsline\ttl@gobblecontents}
-\@writefile{loe}{\let\contentsline\ttl@gobblecontents}
-\pp@pagectr{footnote}{5}{31}{21}
-\@writefile{toc}{\contentsline {chapter}{\numberline {附录 A}补充内容}{21}{appendix.A}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {A.1}插图}{21}{section.A.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {A.1}{\ignorespaces 附录中的图片示例}}{21}{figure.caption.26}\protected@file@percent }
-\newlabel{fig:appendix-figure}{{A.1}{21}{附录中的图片示例}{figure.caption.26}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {A.2}表格}{21}{section.A.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {A.3}数学表达式}{21}{section.A.3}\protected@file@percent }
-\newlabel{eq:appendix-equation}{{A.1}{21}{数学表达式}{equation.A.1}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {A.4}文献引用}{21}{section.A.4}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {A.1}{\ignorespaces 附录中的表格示例}}{22}{table.caption.27}\protected@file@percent }
-\newlabel{tab:appendix-table}{{A.1}{22}{附录中的表格示例}{table.caption.27}{}}
-\@writefile{toc}{\contentsline {section}{参考文献}{22}{section*.28}\protected@file@percent }
-\ttl@writefile{toc}{\setcounter {tocdepth}{0}}
-\@writefile{toc}{\contentsline {chapter}{致谢}{23}{section*.29}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{声明}{24}{section*.31}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{致谢}{22}{section*.25}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{声明}{23}{section*.27}\protected@file@percent }
 \ttl@finishall
-\gdef \@abspage@last{34}
+\gdef \@abspage@last{35}

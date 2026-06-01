@@ -1,12 +1,11 @@
-\contentsline {figure}{\numberline {2.1}{\ignorespaces 残差网络生成器与多尺度块级判别器结构示意图。上半部分：四层三维 U 形生成器，输入为 $24^3$ 局域窗口，经过编码、跳跃连接和解码后输出同尺寸残差场；图中 $C$ 表示随任务替换的条件输入通道数，位移场取 $C=3$，速度场取 $C=6$，二者残差输出均为三通道向量场。下半部分：两尺度块级判别器，输入为条件场与三通道残差场的拼接，通道数为 $C+3$；细分支使用两个步长为 2 的判别卷积块，粗分支使用三个步长为 2 的判别卷积块。}}{7}{figure.caption.16}%
-\contentsline {figure}{\numberline {3.1}{\ignorespaces 第 32 个模拟实现的过密度切片视觉比较。左：N 体模拟参考结果，显示非线性演化后的团块、丝状结构和空洞；中：ZA 基准结果，小尺度结构更平滑、团块更弥散；右：新流程结果，在保留大尺度结构的同时恢复出更紧凑的小尺度团块和更丰富的细节。}}{12}{figure.caption.17}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces 过密度残差 $\mitdelta _{\mathrm {method}}-\mitdelta _{\mathrm {ref}}$ 的概率分布函数，其中参考场为 N 体模拟。曲线统计第 32--47 个模拟实现，阴影表示不同实现的 $1\mitsigma $ 散布；ZA、2LPT 和 ALPT 的残差分布尾部更宽，新流程的残差更集中于 0 附近，说明单点统计恢复更接近 N 体结果。}}{13}{figure.caption.18}%
-\contentsline {figure}{\numberline {3.3}{\ignorespaces 第 32--47 个模拟实现的暗物质功率谱比值 $P/P_{\mathrm {ref}}$，参考谱为 N 体模拟。曲线为不同实现的均值，阴影为 $1\mitsigma $ 散布，灰色虚线表示与 N 体参考完全一致；ZA、2LPT 和 ALPT 在小尺度逐渐低估功率，而新流程在接近 Nyquist 波数前整体保持在 1 附近。}}{14}{figure.caption.19}%
-\contentsline {figure}{\numberline {3.4}{\ignorespaces 第 32--47 个模拟实现的暗物质双谱比值 $B/B_{\mathrm {ref}}$，横轴为两波矢夹角 $\mittheta $，参考双谱为 N 体模拟，灰色虚线表示比值 1。左上：$k_1=0.05, k_2=0.10$；中上：$k_1=0.10, k_2=0.20$；右上：$k_1=0.20, k_2=0.40$；左下：$k_1=0.10, k_2=0.10$；中下：$k_1=0.20, k_2=0.20$；右下：$k_1=0.40, k_2=0.40$。红色实线的新流程在各构型中更接近 1，而微扰论基准在非线性尺度上的双谱幅度偏低。}}{15}{figure.caption.20}%
-\contentsline {figure}{\numberline {3.5}{\ignorespaces 第 16--63 个模拟实现估计得到的暗物质功率谱协方差矩阵，采用线性 $k$ 分箱。左上：N 体参考功率谱协方差矩阵的 $\log _{10}|\mathrm {Cov}_{\mathrm {ref}}(P(k))|$；右上：新流程功率谱协方差矩阵的 $\log _{10}|\mathrm {Cov}_{\mathrm {final}}(P(k))|$；左下：新流程相对 N 体参考协方差矩阵的逐元相对差异；右下：ZA、ALPT、2LPT 和新流程的协方差对角元相对 N 体参考的比值。}}{16}{figure.caption.21}%
-\contentsline {figure}{\numberline {3.6}{\ignorespaces 第 32 个模拟实现的速度模切片比较。左上：N 体模拟参考速度模 $|v|$，包含非线性小尺度速度结构；右上：ZA 基准速度模，整体更平滑，小尺度高速度团块不足；左下：新流程速度模，在小尺度结构上更接近 N 体模拟；右下：N 体模拟与新流程速度场之差的残差模 $|\mitDelta v|$，亮区对应尚未完全恢复的小尺度速度结构。}}{17}{figure.caption.22}%
-\contentsline {figure}{\numberline {3.7}{\ignorespaces 第 32--47 个模拟实现的速度场功率谱比值，参考谱为 N 体模拟。左上：速度散度功率谱比值 $P_{\mittheta \mittheta }/P_{\mittheta \mittheta ,\mathrm {ref}}$；右上：速度旋度模功率谱比值 $P_{|\nabla \times v|}/P_{|\nabla \times v|,\mathrm {ref}}$；左下：速度模功率谱比值 $P_{|v|}/P_{|v|,\mathrm {ref}}$；右下：三个速度分量功率谱比值 $P_{v_i v_i}/P_{v_i v_i,\mathrm {ref}}$。虚线为 ZA，实线为新流程，阴影为不同实现的 $1\mitsigma $ 散布，灰色虚线表示比值 1。}}{18}{figure.caption.23}%
-\let \contentsline \ttl@gobblecontents 
-\contentsline {figure}{\numberline {A.1}{\ignorespaces 附录中的图片示例}}{21}{figure.caption.26}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces 工作流示意图}}{5}{figure.caption.14}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces 残差网络结构}}{8}{figure.caption.15}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces 过密度切片比较}}{13}{figure.caption.16}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces 过密度残差概率分布}}{14}{figure.caption.17}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces 暗物质功率谱比值}}{15}{figure.caption.18}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces 暗物质双谱比值}}{16}{figure.caption.19}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces 暗物质功率谱协方差矩阵}}{17}{figure.caption.20}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces 速度模切片比较}}{18}{figure.caption.21}%
+\contentsline {figure}{\numberline {3.7}{\ignorespaces 速度场功率谱比值}}{19}{figure.caption.22}%
 \contentsfinish 
 \contentsfinish 

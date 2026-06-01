@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2025/dev/Debian) (preloaded format=xelatex 2026.5.21)  1 JUN 2026 17:34
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2025/dev/Debian) (preloaded format=xelatex 2026.6.1)  1 JUN 2026 21:51
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1371,13 +1371,19 @@ LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
 
 
 
+]
+
+[3
+
+
+]
+
+[4
 
 
 ] (./data/abstract.tex
 
 [1
-
-
 
 
 ])
@@ -1394,52 +1400,42 @@ LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
 [3
 
 
-] (./thesis.lof
-LaTeX Font Info:    Font shape `TU/XITSMath-Regular(2)/m/n' will be
-(Font)              scaled to size 12.04628pt on input line 1.
-LaTeX Font Info:    Font shape `TU/XITSMath-Regular(2)/m/n' will be
-(Font)              scaled to size 9.03471pt on input line 1.
-LaTeX Font Info:    Font shape `TU/XITSMath-Regular(2)/m/n' will be
-(Font)              scaled to size 7.22777pt on input line 1.
-LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
-(Font)              scaled to size 12.0437pt on input line 1.
-LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
-(Font)              scaled to size 9.03278pt on input line 1.
-LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
-(Font)              scaled to size 7.22623pt on input line 1.
+] (./thesis.lof)
+\tf@lof=\write7
+\openout7 = `thesis.lof'.
 
+ (./data/denotation.tex
 
 [4
 
 
-])
-\tf@lof=\write7
-\openout7 = `thesis.lof'.
+]
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular(2)/m/n' will be
+(Font)              scaled to size 12.04628pt on input line 15.
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular(2)/m/n' will be
+(Font)              scaled to size 9.03471pt on input line 15.
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular(2)/m/n' will be
+(Font)              scaled to size 7.22777pt on input line 15.
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
+(Font)              scaled to size 12.0437pt on input line 15.
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
+(Font)              scaled to size 9.03278pt on input line 15.
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
+(Font)              scaled to size 7.22623pt on input line 15.
+)
 
-
-
-[5] (./thesis.lot)
-\tf@lot=\write8
-\openout8 = `thesis.lot'.
-
- (./data/denotation.tex
-
-[6
+[5
 
 
 ]
 
-[7
+[6
 
-
-])
-
-[8] (./data/chap01.tex
+] (./data/chap01.tex
 第1章
 
 
 [1
-
 
 ]
 
@@ -1447,6 +1443,8 @@ LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
 
 [3]
 第2章
+File: figures/pipeline.pdf Graphic file (type pdf)
+<use figures/pipeline.pdf>
 
 
 [4
@@ -1454,143 +1452,164 @@ LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
 ]
 
 [5]
-File: figures/architecture.pdf Graphic file (type pdf)
-<use figures/architecture.pdf>
-LaTeX Font Info:    Calculating math sizes for size <11.04124> on input line 53.
-LaTeX Font Info:    Font shape `TU/XITSMath-Regular(2)/m/n' will be
-(Font)              scaled to size 11.04242pt on input line 53.
-LaTeX Font Info:    Font shape `TU/XITSMath-Regular(2)/m/n' will be
-(Font)              scaled to size 7.72966pt on input line 53.
-LaTeX Font Info:    Font shape `TU/XITSMath-Regular(2)/m/n' will be
-(Font)              scaled to size 5.5212pt on input line 53.
-LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
-(Font)              scaled to size 11.04005pt on input line 53.
-LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
-(Font)              scaled to size 7.728pt on input line 53.
-LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
-(Font)              scaled to size 5.52002pt on input line 53.
-
 
 [6]
+File: figures/architecture.pdf Graphic file (type pdf)
+<use figures/architecture.pdf>
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular(2)/m/n' will be
+(Font)              scaled to size 7.00075pt on input line 78.
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular(2)/m/n' will be
+(Font)              scaled to size 5.00053pt on input line 78.
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
+(Font)              scaled to size 6.99925pt on input line 78.
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
+(Font)              scaled to size 4.99947pt on input line 78.
+LaTeX Font Info:    Calculating math sizes for size <11.04124> on input line 79.
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular(2)/m/n' will be
+(Font)              scaled to size 11.04242pt on input line 79.
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular(2)/m/n' will be
+(Font)              scaled to size 7.72966pt on input line 79.
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular(2)/m/n' will be
+(Font)              scaled to size 5.5212pt on input line 79.
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
+(Font)              scaled to size 11.04005pt on input line 79.
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
+(Font)              scaled to size 7.728pt on input line 79.
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
+(Font)              scaled to size 5.52002pt on input line 79.
+
 
 [7]
 
 [8]
-Underfull \hbox (badness 10000) in paragraph at lines 92--94
-\TU/FandolSong(0)/m/n/12.045 其 中 对 抗 项 $[][] [] [][] [][] [][][][][][][][] [][][]$，|  逐 点 项 $[][] []
- []
 
-
-
-[9]) (./data/chap03.tex
+[9]
 
 [10]
 
-[11]
+[11]) (./data/chap03.tex
+
+[12]
 第3章
 File: figures/density_slice.png Graphic file (type bmp)
 <figures/density_slice.png>
-File: figures/PDF.png Graphic file (type bmp)
-<figures/PDF.png>
 
 
-[12
+[13
 
 ]
+File: figures/PDF.png Graphic file (type bmp)
+<figures/PDF.png>
 File: figures/density_power.png Graphic file (type bmp)
 <figures/density_power.png>
 
 
-[13]
+[14]
 File: figures/density_bispectrum.png Graphic file (type bmp)
 <figures/density_bispectrum.png>
 
 
-[14]
+[15]
 File: figures/covariance.png Graphic file (type bmp)
 <figures/covariance.png>
 
 
-[15]
+[16]
 File: figures/velocity_visual.png Graphic file (type bmp)
 <figures/velocity_visual.png>
 
 
-[16]
-
 [17]
+
+[18]
 File: figures/velocity_power.png Graphic file (type bmp)
 <figures/velocity_power.png>
 ) (./data/chap04.tex
 
-[18]
+[19]
 第4章
 )
 \openout3 = `bu.aux'.
 
  (./thesis.bbl
 
-[19
-
-]) (./data/appendix.tex (./bu.aux)
-
 [20
 
-
-]
-附录 A
-File: example-image-a.pdf Graphic file (type pdf)
-<use example-image-a.pdf>
-(./thesis-appendix-a.aux)
-\openout3 = `thesis-appendix-a.aux'.
-
- (./thesis-appendix-a.bbl
+])
 
 [21
 
-]))
 
-[22] (./data/acknowledgements.tex (./bu.aux)) (./bu.aux)
+] (./data/acknowledgements.tex (./bu.aux)) (./bu.aux)
 
-[23
+[22
 
 
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 81--81
+Underfull \hbox (badness 10000) in paragraph at lines 82--82
 []\TU/FandolSong(0)/m/n/12.045 本 人 郑 重 声 明：|  所 呈 交 的 综 合 论 文 训 练 论 文，|  是 本 人 在 导 师 指 导 下，|  独 立 进
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 81--81
+Underfull \hbox (badness 10000) in paragraph at lines 82--82
 \TU/FandolSong(0)/m/n/12.045 行 研 究 工 作 所 取 得 的 成 果。|  尽 我 所 知，|  除 文 中 已 经 注 明 引 用 的 内 容 外，|  本 论 文 的
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 81--81
+Underfull \hbox (badness 10000) in paragraph at lines 82--82
 \TU/FandolSong(0)/m/n/12.045 研 究 成 果 不 包 含 任 何 他 人 享 有 著 作 权 的 内 容。|  对 本 论 文 所 涉 及 的 研 究 工 作 做 出 贡
  []
 
-(./bu.aux)
 
+
+[23
+
+
+]
+File: figures/scan-record.pdf Graphic file (type pdf)
+<use figures/scan-record.pdf>
+File: figures/scan-record.pdf Graphic file (type pdf)
+<use figures/scan-record.pdf, page 1>
+File: figures/scan-record.pdf Graphic file (type pdf)
+<use figures/scan-record.pdf, page 1>
+File: figures/scan-record.pdf Graphic file (type pdf)
+<use figures/scan-record.pdf, page 1>
+File: figures/scan-record.pdf Graphic file (type pdf)
+<use figures/scan-record.pdf, page 1>
+
+
+File: figures/scan-record.pdf Graphic file (type pdf)
+<use figures/scan-record.pdf, page 1>
 [24
 
 
-] (./thesis.aux (./bu.aux))
+]
+File: figures/scan-record.pdf Graphic file (type pdf)
+<use figures/scan-record.pdf, page 2>
+File: figures/scan-record.pdf Graphic file (type pdf)
+<use figures/scan-record.pdf, page 2>
+
+
+File: figures/scan-record.pdf Graphic file (type pdf)
+<use figures/scan-record.pdf, page 2>
+[25
+
+] (./bu.aux) (./thesis.aux (./bu.aux))
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2022/08/05>
  ***********
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: F2C11A27C68C511BC005BF97832364FF;6107.
+(rerunfilecheck)             Checksum: 250F45F1F4250A9D6E50EABB210F4091;5401.
  ) 
 Here is how much of TeX's memory you used:
- 41765 strings out of 475381
- 913471 string characters out of 5762518
- 1365515 words of memory out of 5000000
- 64016 multiletter control sequences out of 15000+600000
- 566745 words of font info for 154 fonts, out of 8000000 for 9000
+ 41693 strings out of 475381
+ 909294 string characters out of 5762519
+ 1362397 words of memory out of 5000000
+ 63945 multiletter control sequences out of 15000+600000
+ 567273 words of font info for 163 fonts, out of 8000000 for 9000
  265 hyphenation exceptions out of 8191
- 106i,12n,126p,1434b,2790s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 106i,17n,126p,1434b,2790s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on thesis.pdf (34 pages).
+Output written on thesis.pdf (35 pages).

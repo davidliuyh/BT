@@ -1,4 +1,4 @@
-\begin{thebibliography}{3}
+\begin{thebibliography}{5}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{#1}
 \expandafter\ifx\csname urlstyle\endcsname\relax\else
@@ -11,23 +11,38 @@
   \let\eprint\href
 \fi
 
+\bibitem[Goodfellow et~al.(2014)Goodfellow, Pouget-Abadie, Mirza, Xu,
+  Warde-Farley, Ozair, Courville, and Bengio]{goodfellow2014generative}
+GOODFELLOW I, POUGET-ABADIE J, MIRZA M, et~al.
+\newblock Generative adversarial nets\allowbreak[C]//\allowbreak
+Advances in Neural Information Processing Systems: Vol.~27.
+\newblock 2014.
+
+\bibitem[Arjovsky et~al.(2017)Arjovsky, Chintala, and
+  Bottou]{arjovsky2017wasserstein}
+ARJOVSKY M, CHINTALA S, BOTTOU L.
+\newblock Wasserstein generative adversarial
+  networks\allowbreak[C]//\allowbreak
+Proceedings of the 34th International Conference on Machine Learning.
+\newblock 2017: 214-223.
+
+\bibitem[Gulrajani et~al.(2017)Gulrajani, Ahmed, Arjovsky, Dumoulin, and
+  Courville]{gulrajani2017improved}
+GULRAJANI I, AHMED F, ARJOVSKY M, et~al.
+\newblock Improved training of wasserstein gans\allowbreak[J].
+\newblock Advances in Neural Information Processing Systems, 2017, 30.
+
 \bibitem[Ronneberger et~al.(2015)Ronneberger, Fischer, and
   Brox]{ronneberger2015u}
-Ronneberger O, Fischer P, Brox T.
+RONNEBERGER O, FISCHER P, BROX T.
 \newblock U-net: Convolutional networks for biomedical image
   segmentation\allowbreak[C]//\allowbreak
 Medical Image Computing and Computer-Assisted Intervention -- MICCAI 2015.
 \newblock Cham: Springer, 2015: 234-241.
 
-\bibitem[Gulrajani et~al.(2017)Gulrajani, Ahmed, Arjovsky, Dumoulin, and
-  Courville]{gulrajani2017improved}
-Gulrajani I, Ahmed F, Arjovsky M, et~al.
-\newblock Improved training of wasserstein gans\allowbreak[J].
-\newblock Advances in Neural Information Processing Systems, 2017, 30.
-
 \bibitem[Wang et~al.(2018)Wang, Liu, Zhu, Tao, Kautz, and
   Catanzaro]{wang2018high}
-Wang T~C, Liu M~Y, Zhu J~Y, et~al.
+WANG T~C, LIU M~Y, ZHU J~Y, et~al.
 \newblock High-resolution image synthesis and semantic manipulation with
   conditional gans\allowbreak[C]//\allowbreak
 Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern
