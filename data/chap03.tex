@@ -143,7 +143,7 @@
 
 \section{运行时间与内存占用}
 
-除统计精度外，快速模拟方法还需要在实际生成任务中保持较低的计算开销。本文在 NVIDIA A100 40GB GPU 上进行了单 epoch 测试，记录训练阶段的峰值显存和内存占用，并测量从读取初始粒子位置 \(\boldsymbol{q}\) 与一阶位移场 \(\boldsymbol{\Psi}_1(\boldsymbol{x},z=127)\) 到完整输出位移场和速度场的端到端运行时间，结果见表~\ref{tab:runtime-memory}。
+除统计精度外，快速模拟方法还需要在实际生成任务中保持较低的计算开销。本文在 NVIDIA A100 40GB GPU 上进行模型训练和推理，记录训练阶段的峰值显存和内存占用，并测量从读取初始粒子位置 \(\boldsymbol{q}\) 与一阶位移场 \(\boldsymbol{\Psi}_1(\boldsymbol{x},z=127)\) 到完整输出位移场和速度场的端到端运行时间，结果见表~\ref{tab:runtime-memory}。
 
 \begin{table}[H]
   \centering

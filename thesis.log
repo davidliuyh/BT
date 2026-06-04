@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2025/dev/Debian) (preloaded format=xelatex 2026.6.1)  2 JUN 2026 01:56
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2025/dev/Debian) (preloaded format=xelatex 2026.6.1)  4 JUN 2026 16:49
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1371,14 +1371,6 @@ LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
 
 
 
-]
-
-[3
-
-
-]
-
-[4
 
 
 ] (./data/abstract.tex
@@ -1386,18 +1378,22 @@ LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
 [1
 
 
-])
+
+
+]
 
 [2
 
 
-] (./thesis.toc)
+])
+
+[3] (./thesis.toc)
 \tf@toc=\write6
 \openout6 = `thesis.toc'.
 
 
 
-[3
+[4
 
 
 ] (./thesis.lof)
@@ -1410,7 +1406,7 @@ LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
 
  (./data/denotation.tex
 
-[4
+[5
 
 
 ]
@@ -1428,18 +1424,15 @@ LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
 (Font)              scaled to size 7.22623pt on input line 15.
 )
 
-[5
-
-
-]
-
 [6
+
 
 ] (./data/chap01.tex
 第1章
 
 
 [1
+
 
 ]
 
@@ -1463,4 +1456,163 @@ File: figures/pipeline.pdf Graphic file (type pdf)
 File: figures/architecture.pdf Graphic file (type pdf)
 <use figures/architecture.pdf>
 LaTeX Font Info:    Font shape `TU/XITSMath-Regular(2)/m/n' will be
-(Font)   
+(Font)              scaled to size 7.00075pt on input line 78.
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular(2)/m/n' will be
+(Font)              scaled to size 5.00053pt on input line 78.
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
+(Font)              scaled to size 6.99925pt on input line 78.
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
+(Font)              scaled to size 4.99947pt on input line 78.
+LaTeX Font Info:    Calculating math sizes for size <11.04124> on input line 79.
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular(2)/m/n' will be
+(Font)              scaled to size 11.04242pt on input line 79.
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular(2)/m/n' will be
+(Font)              scaled to size 7.72966pt on input line 79.
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular(2)/m/n' will be
+(Font)              scaled to size 5.5212pt on input line 79.
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
+(Font)              scaled to size 11.04005pt on input line 79.
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
+(Font)              scaled to size 7.728pt on input line 79.
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
+(Font)              scaled to size 5.52002pt on input line 79.
+
+
+[8]
+
+[9]
+
+[10]
+
+[11]
+
+[12]) (./data/chap03.tex
+
+[13]
+第3章
+File: figures/density_slice.png Graphic file (type bmp)
+<figures/density_slice.png>
+
+
+[14
+
+]
+File: figures/PDF.png Graphic file (type bmp)
+<figures/PDF.png>
+
+
+[15]
+File: figures/density_power.png Graphic file (type bmp)
+<figures/density_power.png>
+
+
+[16]
+File: figures/density_bispectrum.png Graphic file (type bmp)
+<figures/density_bispectrum.png>
+File: figures/covariance.png Graphic file (type bmp)
+<figures/covariance.png>
+
+
+[17]
+File: figures/velocity_visual.png Graphic file (type bmp)
+<figures/velocity_visual.png>
+
+
+[18]
+
+[19]
+File: figures/velocity_power.png Graphic file (type bmp)
+<figures/velocity_power.png>
+
+
+[20]) (./data/chap04.tex
+
+[21]
+第4章
+)
+\openout3 = `bu.aux'.
+
+ (./thesis.bbl
+
+[22
+
+]
+
+[23
+
+
+])
+
+[24] (./data/acknowledgements.tex (./bu.aux)) (./bu.aux)
+
+[25
+
+
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 82--82
+[]\TU/FandolSong(0)/m/n/12.045 本 人 郑 重 声 明：|  所 呈 交 的 综 合 论 文 训 练 论 文，|  是 本 人 在 导 师 指 导 下，|  独 立 进
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 82--82
+\TU/FandolSong(0)/m/n/12.045 行 研 究 工 作 所 取 得 的 成 果。|  尽 我 所 知，|  除 文 中 已 经 注 明 引 用 的 内 容 外，|  本 论 文 的
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 82--82
+\TU/FandolSong(0)/m/n/12.045 研 究 成 果 不 包 含 任 何 他 人 享 有 著 作 权 的 内 容。|  对 本 论 文 所 涉 及 的 研 究 工 作 做 出 贡
+ []
+
+
+
+[26
+
+
+]
+File: figures/scan-record.pdf Graphic file (type pdf)
+<use figures/scan-record.pdf>
+File: figures/scan-record.pdf Graphic file (type pdf)
+<use figures/scan-record.pdf, page 1>
+File: figures/scan-record.pdf Graphic file (type pdf)
+<use figures/scan-record.pdf, page 1>
+File: figures/scan-record.pdf Graphic file (type pdf)
+<use figures/scan-record.pdf, page 1>
+File: figures/scan-record.pdf Graphic file (type pdf)
+<use figures/scan-record.pdf, page 1>
+
+
+File: figures/scan-record.pdf Graphic file (type pdf)
+<use figures/scan-record.pdf, page 1>
+[27
+
+
+]
+File: figures/scan-record.pdf Graphic file (type pdf)
+<use figures/scan-record.pdf, page 2>
+File: figures/scan-record.pdf Graphic file (type pdf)
+<use figures/scan-record.pdf, page 2>
+
+
+File: figures/scan-record.pdf Graphic file (type pdf)
+<use figures/scan-record.pdf, page 2>
+[28
+
+] (./bu.aux) (./thesis.aux (./bu.aux))
+ ***********
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2022/08/05>
+ ***********
+Package rerunfilecheck Info: File `thesis.out' has not changed.
+(rerunfilecheck)             Checksum: B8CE4940EECA67961151DBCCF8C2D7E4;5575.
+ ) 
+Here is how much of TeX's memory you used:
+ 41750 strings out of 475381
+ 910209 string characters out of 5762519
+ 1363767 words of memory out of 5000000
+ 63999 multiletter control sequences out of 15000+600000
+ 567273 words of font info for 163 fonts, out of 8000000 for 9000
+ 265 hyphenation exceptions out of 8191
+ 106i,17n,126p,1646b,2790s stack positions out of 10000i,1000n,20000p,200000b,200000s
+
+Output written on thesis.pdf (36 pages).
