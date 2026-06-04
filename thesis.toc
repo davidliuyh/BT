@@ -28,8 +28,7 @@
 \contentsline {section}{\numberline {3.6}速度场两点统计}{19}{section.3.6}%
 \contentsline {section}{\numberline {3.7}运行时间与内存占用}{20}{section.3.7}%
 \contentsline {chapter}{\numberline {第4章}结论与展望}{22}{chapter.4}%
-\contentsline {chapter}{参考文献}{23}{section*.24}%
 \setcounter {tocdepth}{0}
-\contentsline {chapter}{致谢}{25}{section*.26}%
-\contentsline {chapter}{声明}{26}{section*.28}%
+\contentsline {chapter}{致谢}{23}{section*.24}%
+\contentsline {chapter}{声明}{24}{section*.26}%
 \contentsfinish 
