@@ -8,7 +8,7 @@
 
 第一步，使用 ZA 生成大尺度结构。ZA 是拉格朗日微扰论的一阶近似，通过输入线性功率谱和宇宙学参数，可简单、快速地计算出每个粒子的位移和速度。它可以满足大尺度上位移场和速度场的准确性，但对于小尺度物理表现不佳。
 
-第二步，使用 WGAN-GP 神经网络进行纠偏。考虑到显存限制、推理速度要求以及模拟需扩展到大体积的需求，我们将整个模拟盒子切割成小块，训练神经网络学习从 ZA 基准位移场到 N 体位移残差的映射。对于速度场，使用另一个 WGAN-GP 神经网络，输入为 ZA 基准速度场与位移推理结果的结合，输出为速度残差。这样，网络可同时利用速度场的线性大尺度信息和位移场中已恢复的非线性结构信息，更准确地补全小尺度速度结构。值得注意的是，在最小尺度上，由于维里化效应，N 体模拟中的粒子位置和速度具有较强随机性，因此我们不要求神经网络完全恢复每个粒子的位移和速度，而是让网络在统计意义上尽可能接近 N 体结果的残差分布，从而补全小尺度结构的统计特征。
+第二步，使用 WGAN-GP 神经网络进行纠偏。考虑到显存限制、推理速度要求以及模拟需扩展到大体积的需求，我们将整个模拟盒子切割成小块，训练神经网络学习从 ZA 基准位移场到 N 体位移残差的映射。对于速度场，使用另一个 WGAN-GP 神经网络，输入为 ZA 基准速度场与位移推理结果的结合，输出为速度残差。这样，网络可同时利用速度场的线性大尺度信息和位移场中已恢复的非线性结构信息，更准确地补全小尺度速度结构。值得注意的是，在最小的尺度上，由于维里化效应，N 体模拟中的粒子位置和速度具有较强随机性，因此我们不要求神经网络完全恢复每个粒子的位移和速度，而是让网络在统计意义上尽可能接近 N 体结果的残差分布，从而补全小尺度结构的统计特征。
 
 推理阶段，将 ZA 基准位移场切块后输入网络，得到残差预测，再将残差重新组合成大体积结果。对推理得到的位移残差场施加高通滤波，再与 ZA 位移场相加作为最终位移场输出，以减小从小体积拼接回大体积时产生的大尺度不稳定性，最后将该位移场赋给每个粒子得到粒子位移。速度场采用相同的切块和回填方式，但神经网络输入不再是单独的 ZA 速度场，而是 ZA 基准速度场与上一步推理得到的最终位移场的结合。网络输出为速度残差。由于 ZA 速度场在大尺度上不如位移场可靠，当前推理阶段不对速度残差施加高通滤波，而是直接与 ZA 基准速度场相加得到最终速度场。
 
@@ -22,16 +22,16 @@
 
 \section{模拟参考样本概述}
 
-为验证工作流的可行性，实验中使用 Quijote 数据集的低精度 N 体模拟作为参考样本\citep{villaescusa2020quijote}。每个模拟盒子边长为 $1\,\mathrm{Gpc}$，粒子数为 $256^3$，对应平坦 $\Lambda$CDM 宇宙学，宇宙学参数为 $\Omega_b = 0$、$\Omega_m = 0.3175$、$h = 0.6711$、$\sigma_8 = 0.834$、$A_s = 2.13 \times 10^{-9}$、$n_s = 0.9624$。其中 $\Omega_b$ 和 $\Omega_m$ 分别为重子物质与总物质密度参数，$h$ 为无量纲哈勃常数，$\sigma_8$ 为 $8\,h^{-1}\mathrm{Mpc}$ 尺度上的线性密度扰动均方根，$A_s$ 为原初标量扰动振幅，$n_s$ 为原初标量谱指数。
+为验证工作流的可行性，实验中使用 Quijote N 体模拟数据集作为参考样本\citep{villaescusa2020quijote}。每个模拟盒子体积为 \(1\,\left(h^{-1}\mathrm{Gpc}\right)^3\)，粒子数为 \(256^3\)，对应平坦 \(\Lambda\)CDM 宇宙学，宇宙学参数为 \(\Omega_b = 0\)、\(\Omega_m = 0.3175\)、\(h = 0.6711\)、\(\sigma_8 = 0.834\)、\(A_s = 2.13 \times 10^{-9}\)、\(n_s = 0.9624\)。其中 \(\Omega_b\) 和 \(\Omega_m\) 分别为重子物质与总物质密度参数，\(h\) 为无量纲哈勃常数，\(\sigma_8\) 为 \(8\,h^{-1}\mathrm{Mpc}\) 尺度上的线性密度扰动均方根，\(A_s\) 为原初标量扰动振幅，\(n_s\) 为原初标量谱指数。
 
 \section{大尺度结构生成}
 
-我们使用 ZA 作为大尺度基准。粒子采样位置 $\boldsymbol{q}$（粒子并非放在格点上，而是采用更均匀的采样方式）以及拉格朗日微扰论一阶位移场 $\boldsymbol{\Psi}_1(\boldsymbol{x}, z = 127)$ 通过 2LPTic 代码生成，并与 Quijote 数据集的初始条件保持完全一致\citep{jenkins2010secondorder,villaescusa2020quijote}。若已知某高红移 $z_i$ 处被线性理论良好描述的一阶位移场 $\boldsymbol{\Psi}_1(\boldsymbol{x}, z_i)$，则 ZA 估计红移 $z$ 处的位移场和速度场为：
+我们使用 ZA 作为大尺度基准。粒子采样位置 \(\boldsymbol{q}\)（粒子并非放在格点上，而是采用更均匀的采样方式）以及拉格朗日微扰论一阶位移场 \(\boldsymbol{\Psi}_1(\boldsymbol{x}, z = 127)\) 通过 2LPTic 代码生成，并与 Quijote 数据集的初始条件保持完全一致\citep{jenkins2010secondorder,villaescusa2020quijote}。若已知某高红移 \(z_i\) 处被线性理论良好描述的一阶位移场 \(\boldsymbol{\Psi}_1(\boldsymbol{x}, z_i)\)，则 ZA 估计红移 \(z\) 处的位移场和速度场为：
 \begin{align}
   \boldsymbol{\Psi}_{\mathrm{ZA}}(\boldsymbol{x}, z) & = \frac{D(z)}{D(z_i)} \, \boldsymbol{\Psi}_1(\boldsymbol{x}, z_i),     \\
-  \boldsymbol{v}_{\mathrm{ZA}}(\boldsymbol{x}, z)    & = D(z)f(z)H(z)\frac{d \boldsymbol{\Psi}_1(\boldsymbol{x}, z)}{d D(z)}.
+  \boldsymbol{v}_{\mathrm{ZA}}(\boldsymbol{x}, z)    & = D(z)f(z)H(z)\frac{\dif \boldsymbol{\Psi}_1(\boldsymbol{x}, z)}{\dif D(z)},
 \end{align}
-其中 $z_i$ 为初始红移，本文固定为 $127$。$\boldsymbol{v}_{\mathrm{ZA}}$ 为 ZA 速度场，$D(z)$ 为线性生长因子，$f(z)=d\ln D/d\ln a$ 为生长率，$a=1/(1+z)$ 为尺度因子，$H(z)$ 为哈勃参数。
+其中 \(z_i\) 为初始红移，本文固定为 \(127\)。\(\boldsymbol{v}_{\mathrm{ZA}}\) 为 ZA 速度场，\(D(z)\) 为线性增长因子，\(f(z)=\dif \ln D/\dif \ln a\) 为生长率，\(a=1/(1+z)\) 为尺度因子，\(H(z)\) 为哈勃参数。
 % 对于粒子位移，将 ZA 位移场 $\boldsymbol{\Psi}_{\mathrm{ZA}}(\boldsymbol{x}, z)$ 赋给每个粒子，叠加上初始采样位置得到 ZA 下的粒子位置：
 % \begin{equation}
 %   \boldsymbol{x}(\boldsymbol{q}, z) = \boldsymbol{q} + \boldsymbol{\Psi}_{\mathrm{ZA}}(\boldsymbol{q}, z).
@@ -44,7 +44,7 @@
 
 \subsection{网络架构}
 
-位移场和速度场的残差神经网络均以 $24^3$ 的三维局域窗口为基本样本。记条件输入为 $\boldsymbol{c}$，真实残差为 $\boldsymbol{r}$，生成器为 $G$，则生成残差为 $\hat{\boldsymbol{r}}=G(\boldsymbol{c})$。两个任务采用相同的四层三维 U 形生成器和多尺度块级判别器主干，仅在条件输入通道数 $C$ 上不同：位移网络取 $C=3$，条件输入和残差输出均为三通道；速度网络取 $C=6$，条件输入为 ZA 速度场与位移推理结果的拼接，残差输出仍为三通道速度场。判别器接收条件场与残差场的通道拼接，因此输入通道数为 $C+3$。图~\ref{fig:architecture} 用一张通用结构图统一表示两个网络。
+位移场和速度场的残差神经网络均以 $24^3$ 的三维局域窗口为基本样本。记条件输入为 $\boldsymbol{c}$，真实残差为 $\boldsymbol{r}$，生成器为 $G$，则生成残差为 $\hat{\boldsymbol{r}}=G(\boldsymbol{c})$。两个任务采用相同的五层三维 U 形生成器和多尺度判别器主干，仅在条件输入通道数 $C$ 上不同：位移网络取 $C=3$，条件输入和残差输出均为三通道；速度网络取 $C=6$，条件输入为 ZA 速度场与位移推理结果的拼接，残差输出仍为三通道速度场。判别器接收条件场与残差场的通道拼接，因此输入通道数为 $C+3$。图~\ref{fig:architecture} 用一张通用结构图统一表示两个网络。
 
 训练时，本文采用条件生成对抗网络（GAN）框架\citep{goodfellow2014generative}。GAN 由生成器 $G$ 和判别器 $D$ 组成：$G$ 根据条件 $\boldsymbol{c}$ 产生残差样本 $\hat{\boldsymbol{r}}$，$D$ 判断输入残差来自 N 体模拟还是来自生成器。两者交替优化，使生成残差不仅逐点接近真实残差，还在局域纹理、非线性团块和速度结构等统计特征上接近 N 体结果。
 
@@ -57,7 +57,7 @@
 \end{equation}
 其中 $W(P_{\mathrm{r}},P_{\mathrm{g}})$ 表示 Wasserstein-1 距离，$P_{\mathrm{r}}$ 和 $P_{\mathrm{g}}$ 分别表示真实残差和生成残差的条件分布，$\mathbb{E}$ 表示期望，$\|D\|_{\mathrm{L}}\leq1$ 表示评论器满足 1-Lipschitz 约束。Wasserstein 目标在两种分布支撑集相距较远时仍能提供连续的优化信号，因而适合本文的高维三维场残差训练。
 
-WGAN-GP 进一步用梯度惩罚（gradient penalty, GP）实现 1-Lipschitz 约束\citep{gulrajani2017improved}。它不采用早期 WGAN 的权重裁剪，而是在真实残差与生成残差之间的插值样本上约束评论器梯度范数接近 1，从而在保持判别器表达能力的同时提高对抗训练稳定性。本文选择 WGAN-GP，正是为了让网络稳定学习小尺度非线性残差的分布特征；具体损失形式将在下一小节给出。
+WGAN-GP 进一步用梯度惩罚（GP）实现 1-Lipschitz 约束\citep{gulrajani2017improved}。它不采用早期 WGAN 的权重裁剪，而是在真实残差与生成残差之间的插值样本上约束评论器梯度范数接近 1，从而在保持判别器表达能力的同时提高对抗训练稳定性。本文选择 WGAN-GP，正是为了让网络稳定学习小尺度非线性残差的分布特征；具体损失形式将在下一小节给出。
 
 \subsubsection{位移场残差网络}
 
@@ -67,7 +67,7 @@ WGAN-GP 进一步用梯度惩罚（gradient penalty, GP）实现 1-Lipschitz 约
 \end{equation}
 生成器输入为 $\boldsymbol{\Psi}_{\mathrm{ZA}}$ 的三通道局域窗口，输出为同尺寸的三通道残差位移场 $\Delta\boldsymbol{\Psi}$。这种残差表征将 ZA 已保持较好的大尺度模式留给解析基准项，使神经网络专注于学习非线性演化导致的小尺度修正。
 
-如图~\ref{fig:architecture} 上半部分所示，位移生成器采用四层三维 U 形编码器-解码器主干\citep{ronneberger2015u}。对于位移场任务，生成器的条件输入通道数为 3，输出通道数也为 3。基础通道数设为 40，池化层数为 4。每个双卷积模块包含两层 $3\times3\times3$ 卷积，每层卷积后接批归一化和 ReLU 激活函数；每个下采样模块先进行 $2\times2\times2$ 最大池化，再执行双卷积模块。编码器空间分辨率依次为 $24^3\rightarrow12^3\rightarrow6^3\rightarrow3^3\rightarrow1^3$，通道数依次为 $40\rightarrow80\rightarrow160\rightarrow320\rightarrow320$。解码器使用三线性插值上采样，每一级将上采样特征与同分辨率的编码器特征按通道拼接，再通过双卷积模块融合；解码端通道数依次回落为 $160\rightarrow80\rightarrow40\rightarrow40$。最后的 $1\times1\times1$ 卷积做逐点通道投影，将 40 通道特征映射为三通道 $\Delta\boldsymbol{\Psi}$。最终与 ZA 基准位移场 $\boldsymbol{\Psi}_{\mathrm{ZA}}$ 通过滤波器结合得到最终位移场 $\boldsymbol{\Psi}_{\mathrm{final}}$，再赋给每个粒子得到粒子位移。
+如图~\ref{fig:architecture} 上半部分所示，位移生成器采用五层三维 U 形编码器-解码器主干\citep{ronneberger2015u}。对于位移场任务，生成器的条件输入通道数为 3，输出通道数也为 3。基础通道数设为 40，池化层数为 4。每个双卷积模块包含两层 $3\times3\times3$ 卷积，每层卷积后接批归一化和 ReLU 激活函数；每个下采样模块先进行 $2\times2\times2$ 最大池化，再执行双卷积模块。编码器空间分辨率依次为 $24^3\rightarrow12^3\rightarrow6^3\rightarrow3^3\rightarrow1^3$，通道数依次为 $40\rightarrow80\rightarrow160\rightarrow320\rightarrow320$。解码器使用三线性插值上采样，每一级将上采样特征与同分辨率的编码器特征按通道拼接，再通过双卷积模块融合；解码端通道数依次回落为 $160\rightarrow80\rightarrow40\rightarrow40$。最后的 $1\times1\times1$ 卷积做逐点通道投影，将 40 通道特征映射为三通道 $\Delta\boldsymbol{\Psi}$。最终与 ZA 基准位移场 $\boldsymbol{\Psi}_{\mathrm{ZA}}$ 通过滤波器结合得到最终位移场 $\boldsymbol{\Psi}_{\mathrm{final}}$，再赋给每个粒子得到粒子位移。
 
 \begin{figure}[htbp]
   \centering
@@ -75,13 +75,13 @@ WGAN-GP 进一步用梯度惩罚（gradient penalty, GP）实现 1-Lipschitz 约
   \par\smallskip
   \begin{minipage}{0.96\textwidth}
     \small\raggedright
-    上半部分为四层三维 U 形生成器，输入为 $24^3$ 局域窗口，经过编码、跳跃连接和解码后输出同尺寸残差场；图中 $C$ 表示随任务替换的条件输入通道数，位移场取 $C=3$，速度场取 $C=6$，二者残差输出均为三通道向量场。下半部分为两尺度块级判别器，输入为条件场与三通道残差场的拼接，通道数为 $C+3$；细分支使用两个步长为 2 的判别卷积块，粗分支使用三个步长为 2 的判别卷积块。
+    上半部分为五层三维 U 形生成器，输入为 $24^3$ 局域窗口，经过编码、跳跃连接和解码后输出同尺寸残差场；图中 $C$ 表示随任务替换的条件输入通道数，位移场取 $C=3$，速度场取 $C=6$，二者输出均为三通道残差场。下半部分为两尺度判别器，输入为条件场与三通道残差场的拼接，通道数为 $C+3$；细分支使用两个步长为 2 的判别卷积块，粗分支使用三个步长为 2 的判别卷积块。
   \end{minipage}
   \caption{残差网络结构}
   \label{fig:architecture}
 \end{figure}
 
-位移场模型采用 WGAN-GP 训练框架\citep{gulrajani2017improved}，并使用多尺度块级判别器\citep{wang2018high}，其结构如图~\ref{fig:architecture} 下半部分所示。位移判别器的输入为条件场与残差场在通道维的拼接 $[\boldsymbol{\Psi}_{\mathrm{ZA}}, \Delta\boldsymbol{\Psi}]$，对应 $C+3=6$ 个通道；真实分支使用 $\boldsymbol{\Psi}_{\mathrm{ref}}-\boldsymbol{\Psi}_{\mathrm{ZA}}$，生成分支使用位移生成器输出的残差。每个子判别器以 64 个基准通道开始，由步长为 2 的 $3\times3\times3$ 卷积块构成，除第一层外使用实例归一化和 Leaky ReLU 激活函数。当前配置包含两个尺度：细尺度判别器使用 2 个卷积块，侧重局域纹理和高频残差；粗尺度判别器使用 3 个卷积块，约束更大感受野内的局部块级一致性。每个子判别器输出单通道真实性打分图。
+位移场模型采用 WGAN-GP 训练框架\citep{gulrajani2017improved}，并使用多尺度判别器\citep{wang2018high}，其结构如图~\ref{fig:architecture} 下半部分所示。位移判别器的输入为条件场与残差场在通道维的拼接 $[\boldsymbol{\Psi}_{\mathrm{ZA}}, \Delta\boldsymbol{\Psi}]$，对应 $C+3=6$ 个通道；真实分支使用 $\boldsymbol{\Psi}_{\mathrm{ref}}-\boldsymbol{\Psi}_{\mathrm{ZA}}$，生成分支使用位移生成器输出的残差。每个子判别器以 64 个基准通道开始，由步长为 2 的 $3\times3\times3$ 卷积块构成，除第一层外使用实例归一化和 Leaky ReLU 激活函数。当前配置包含两个尺度：细尺度判别器使用 2 个卷积块，侧重局域纹理和高频残差；粗尺度判别器使用 3 个卷积块，约束更大感受野内的局部块级一致性。每个子判别器输出单通道真实性打分图。
 
 位移生成器包含约 $15.7\mathrm{M}$ 个参数，两尺度判别器共包含约 $1.4\mathrm{M}$ 个参数；训练阶段生成器与判别器总参数量约为 $17.1\mathrm{M}$。推理阶段仅使用生成器，参数量约 $15.7\mathrm{M}$。
 
@@ -97,9 +97,9 @@ WGAN-GP 进一步用梯度惩罚（gradient penalty, GP）实现 1-Lipschitz 约
 \end{equation}
 这样，速度场网络可同时利用 ZA 速度场中的线性大尺度信息，以及位移场中已恢复的非线性密度结构信息。
 
-如图~\ref{fig:architecture} 上半部分所示，速度生成器与位移生成器使用同一类四层三维 U 形网络，基础通道数也为 40。编码器分辨率同样为 $24^3\rightarrow12^3\rightarrow6^3\rightarrow3^3\rightarrow1^3$，通道数为 $40\rightarrow80\rightarrow160\rightarrow320\rightarrow320$；解码器经四级上采样恢复至 $24^3$，通道数为 $160\rightarrow80\rightarrow40\rightarrow40$。与位移生成器相比，速度生成器只在通道接口上变化：第一层卷积接收 $C=6$ 个条件通道，最后的 $1\times1\times1$ 卷积仍输出三通道速度残差 $\Delta\boldsymbol{v}$。训练时还对输入条件和目标残差进行向量组共享标准化：速度条件三通道共享一组统计量，位移条件三通道共享一组统计量，目标速度残差三通道共享一组统计量；这些均值和标准差写入模型，推理阶段用于还原物理量纲。
+如图~\ref{fig:architecture} 上半部分所示，速度生成器与位移生成器使用同一类五层三维 U 形网络，基础通道数也为 40。编码器分辨率同样为 $24^3\rightarrow12^3\rightarrow6^3\rightarrow3^3\rightarrow1^3$，通道数为 $40\rightarrow80\rightarrow160\rightarrow320\rightarrow320$；解码器经四级上采样恢复至 $24^3$，通道数为 $160\rightarrow80\rightarrow40\rightarrow40$。与位移生成器相比，速度生成器只在通道接口上变化：第一层卷积接收 $C=6$ 个条件通道，最后的 $1\times1\times1$ 卷积仍输出三通道速度残差 $\Delta\boldsymbol{v}$。训练时还对输入条件和目标残差进行向量组共享标准化：速度条件三通道共享一组统计量，位移条件三通道共享一组统计量，目标速度残差三通道共享一组统计量；这些均值和标准差写入模型，推理阶段用于还原物理量纲。
 
-速度场模型同样采用 WGAN-GP 和多尺度块级判别器，其结构如图~\ref{fig:architecture} 下半部分所示。速度判别器的输入为条件场与速度残差在通道维的拼接 $[\boldsymbol{v}_{\mathrm{ZA}}, \boldsymbol{\Psi}_{\mathrm{final}}, \Delta\boldsymbol{v}]$，对应 $C+3=9$ 个通道；训练时实际送入的是标准化后的张量。真实分支使用 $\boldsymbol{v}_{\mathrm{ref}}-\boldsymbol{v}_{\mathrm{ZA}}$，生成分支使用速度生成器输出的残差。判别器拓扑与位移场模型一致：每个子判别器以 64 个基准通道开始，由步长为 2 的 $3\times3\times3$ 卷积块构成，除第一层外使用实例归一化和 Leaky ReLU 激活函数。细尺度判别器使用 2 个卷积块约束局域速度残差形态，粗尺度判别器使用 3 个卷积块约束更大尺度的速度结构一致性。每个子判别器输出单通道打分图。
+速度场模型同样采用 WGAN-GP 和多尺度判别器，其结构如图~\ref{fig:architecture} 下半部分所示。速度判别器的输入为条件场与速度残差在通道维的拼接 $[\boldsymbol{v}_{\mathrm{ZA}}, \boldsymbol{\Psi}_{\mathrm{final}}, \Delta\boldsymbol{v}]$，对应 $C+3=9$ 个通道；训练时实际送入的是标准化后的张量。真实分支使用 $\boldsymbol{v}_{\mathrm{ref}}-\boldsymbol{v}_{\mathrm{ZA}}$，生成分支使用速度生成器输出的残差。判别器拓扑与位移场模型一致：每个子判别器以 64 个基准通道开始，由步长为 2 的 $3\times3\times3$ 卷积块构成，除第一层外使用实例归一化和 Leaky ReLU 激活函数。细尺度判别器使用 2 个卷积块约束局域速度残差形态，粗尺度判别器使用 3 个卷积块约束更大尺度的速度结构一致性。每个子判别器输出单通道打分图。
 
 速度生成器包含约 $15.7\mathrm{M}$ 个参数，两尺度判别器共包含约 $1.4\mathrm{M}$ 个参数；训练阶段总参数量约为 $17.1\mathrm{M}$，推理阶段仅使用生成器，参数量为 $15.7\mathrm{M}$。
 
@@ -144,7 +144,7 @@ WGAN-GP 进一步用梯度惩罚（gradient penalty, GP）实现 1-Lipschitz 约
 
 \subsection{模型训练}
 
-训练样本来自 Quijote 低精度模拟中的 32 个实现，其中16个用于位移场训练，另外16个用于速度场训练。速度场训练时需要推理得到的位移场作为条件输入，采用与位移场不同的模拟集可避免输入来自训练集。训练样本块以周期窗口方式从全盒子中划分：有效块长为 20，边界填充为 2，模型实际输入窗口为 $24^3$，回填时只使用中心 $20^3$ 有效区域。每个 $256^3$ 网格在三轴上以步长 20 周期切块，得到 $13^3=2197$ 个训练块。
+训练样本来自 Quijote 模拟中的 32 个实现，其中16个用于位移场训练，另外16个用于速度场训练。速度场训练时需要推理得到的位移场作为条件输入，采用与位移场不同的模拟集可避免输入来自训练集。训练样本块以周期窗口方式从全盒子中划分：有效块长为 20，边界填充为 2，模型实际输入窗口为 $24^3$，回填时只使用中心 $20^3$ 有效区域。每个 $256^3$ 网格在三轴上以步长 20 周期切块，得到 $13^3=2197$ 个训练块。
 
 位移训练中，输入来自 $\boldsymbol{\Psi}_{\mathrm{ZA}}$，目标来自 $\boldsymbol{\Psi}_{\mathrm{ref}}-\boldsymbol{\Psi}_{\mathrm{ZA}}$，不做旋转增强；速度训练中，先由当前位移模型推理得到 $\boldsymbol{\Psi}_{\mathrm{final}}$，输入来自 $[\boldsymbol{v}_{\mathrm{ZA}},\boldsymbol{\Psi}_{\mathrm{final}}]$，目标来自 $\boldsymbol{v}_{\mathrm{ref}}-\boldsymbol{v}_{\mathrm{ZA}}$。速度训练时对条件场中的两个三通道向量组和目标速度残差同步随机施加 24 个保向立方体旋转之一，以降低可能存在的训练集导致的神经网络对不同通道的偏好，尽量保证神经网络的各向同性。
 
@@ -152,12 +152,12 @@ WGAN-GP 进一步用梯度惩罚（gradient penalty, GP）实现 1-Lipschitz 约
 
 \subsection{模型推理}
 
-位移场推理：首先由 ZA 得到全盒子的 $\boldsymbol{\Psi}_{\mathrm{ZA}}$，按三个方向步长 20 切成 $13^3$ 个 $24^3$ 窗口送入位移生成器。输出残差经每边 2 像素剪切得到 $20^3$ 有效区域，回填全盒子后，对预测残差逐分量施加傅里叶空间高通滤波：
+位移场推理：首先由 ZA 得到全盒子的 $\boldsymbol{\Psi}_{\mathrm{ZA}}$，按三个方向步长 20 切成 $13^3$ 个 $24^3$ 窗口送入位移生成器。输出残差经每边 2 像素剪切得到 $20^3$ 有效区域，回填全盒子后，对预测残差$\Delta\boldsymbol{\Psi}_{\mathrm{pred}}$逐分量施加傅里叶空间高通滤波：
 \begin{equation}
   \begin{aligned}
     \boldsymbol{\Psi}_{\mathrm{final}}(\boldsymbol{x}) & = \boldsymbol{\Psi}_{\mathrm{ZA}}(\boldsymbol{x}) + \mathcal{F}^{-1}\left[ W_{\mathrm{HP}}(k) \mathcal{F}\left[\Delta\boldsymbol{\Psi}_{\mathrm{pred}}\right](\boldsymbol{k}) \right](\boldsymbol{x}), \\
     W_{\mathrm{HP}}(k)                                 & = \frac{1}{1+\exp\left[-(k-k_{\mathrm{cut}})/\Delta k\right]}, \quad k=|\boldsymbol{k}|,                                                                                                               \\
-    k_{\mathrm{cut}}                                   & = 0.02, \quad \Delta k = 0.01.
+    k_{\mathrm{cut}}                                   & = 0.02, \quad \Delta k = 0.01,
   \end{aligned}
 \end{equation}
 其中$\mathcal{F}$表示傅里叶变换，$\mathcal{F}^{-1}$表示逆傅里叶变换。因为神经网络输入输出体积较小，只能保证较小尺度的信息，该滤波避免回填后的网络残差改写 ZA 已保留的大尺度模式。
