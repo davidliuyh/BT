@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2025/dev/Debian) (preloaded format=xelatex 2026.6.1)  23 JUN 2026 15:49
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2025/dev/Debian) (preloaded format=xelatex 2026.6.1)  23 JUN 2026 18:35
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1411,13 +1411,18 @@ File: scan-copyright.pdf Graphic file (type pdf)
 \tf@lof=\write7
 \openout7 = `thesis.lof'.
 
- (./thesis.lot)
+
+
+[5
+
+
+] (./thesis.lot)
 \tf@lot=\write8
 \openout8 = `thesis.lot'.
 
  (./data/denotation.tex
 
-[5
+[6
 
 
 ]
@@ -1435,26 +1440,11 @@ LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
 (Font)              scaled to size 7.22623pt on input line 16.
 )
 
-[6
+[7
 
 
 ] (./data/chap01.tex
 第1章
-
-Package natbib Warning: Citation `adame2025desi' on page 1 undefined on input line 7.
-
-
-Package natbib Warning: Citation `planck2016cosmological' on page 1 undefined on input line 7.
-
-
-Package natbib Warning: Citation `euclid2020forecast' on page 1 undefined on input line 7.
-
-
-Package natbib Warning: Citation `kitching2015weaklensing' on page 1 undefined on input line 7.
-
-
-Package natbib Warning: Citation `springel2021gadget4' on page 1 undefined on input line 15.
-
 
 
 [1
@@ -1462,42 +1452,7 @@ Package natbib Warning: Citation `springel2021gadget4' on page 1 undefined on in
 
 ]
 
-Package natbib Warning: Citation `kitaura2013alpt' on page 2 undefined on input line 38.
-
-
-Package natbib Warning: Citation `kitaura2014patchy' on page 2 undefined on input line 38.
-
-
-Package natbib Warning: Citation `chuang2015ezmocks' on page 2 undefined on input line 38.
-
-
-
 [2]
-
-Package natbib Warning: Citation `jeong2006perturbation' on page 3 undefined on input line 42.
-
-
-Package natbib Warning: Citation `taruya2018grid' on page 3 undefined on input line 42.
-
-
-Package natbib Warning: Citation `carrasco2014eft' on page 3 undefined on input line 42.
-
-
-Package natbib Warning: Citation `he2019learning' on page 3 undefined on input line 44.
-
-
-Package natbib Warning: Citation `oliveira2020fast' on page 3 undefined on input line 44.
-
-
-Package natbib Warning: Citation `jamieson2023field' on page 3 undefined on input line 44.
-
-
-Package natbib Warning: Citation `jamieson2024field' on page 3 undefined on input line 44.
-
-
-Package natbib Warning: Citation `kang2026tunes' on page 3 undefined on input line 44.
-
-
 
 [3]) (./data/chap02.tex
 
@@ -1506,37 +1461,14 @@ Package natbib Warning: Citation `kang2026tunes' on page 3 undefined on input li
 File: figures/pipeline.pdf Graphic file (type pdf)
 <use figures/pipeline.pdf>
 
-Package natbib Warning: Citation `villaescusa2020quijote' on page 5 undefined on input line 25.
-
-
 
 [5
 
 ]
 
-Package natbib Warning: Citation `jenkins2010secondorder' on page 6 undefined on input line 29.
-
-
-Package natbib Warning: Citation `villaescusa2020quijote' on page 6 undefined on input line 29.
-
-
-
 [6]
 
-Package natbib Warning: Citation `goodfellow2014generative' on page 7 undefined on input line 49.
-
-
-Package natbib Warning: Citation `arjovsky2017wasserstein' on page 7 undefined on input line 51.
-
-
-Package natbib Warning: Citation `gulrajani2017improved' on page 7 undefined on input line 60.
-
-
-
 [7]
-
-Package natbib Warning: Citation `ronneberger2015u' on page 8 undefined on input line 70.
-
 File: figures/architecture.pdf Graphic file (type pdf)
 <use figures/architecture.pdf>
 LaTeX Font Info:    Font shape `TU/XITSMath-Regular(2)/m/n' will be
@@ -1561,12 +1493,6 @@ LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
 LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
 (Font)              scaled to size 5.52002pt on input line 79.
 
-Package natbib Warning: Citation `gulrajani2017improved' on page 8 undefined on input line 84.
-
-
-Package natbib Warning: Citation `wang2018high' on page 8 undefined on input line 84.
-
-
 
 [8]
 
@@ -1580,9 +1506,6 @@ Package natbib Warning: Citation `wang2018high' on page 8 undefined on input lin
 
 [13]
 第3章
-
-Package natbib Warning: Citation `villaescusa2020quijote' on page 14 undefined on input line 4.
-
 File: figures/density_slice.png Graphic file (type bmp)
 <figures/density_slice.png>
 
@@ -1595,9 +1518,6 @@ File: figures/PDF.png Graphic file (type bmp)
 
 
 [15]
-
-Package natbib Warning: Citation `kang2026tunes' on page 16 undefined on input line 50.
-
 File: figures/density_power.png Graphic file (type bmp)
 <figures/density_power.png>
 
@@ -1628,13 +1548,18 @@ File: figures/velocity_power.png Graphic file (type bmp)
 )
 \openout3 = `bu.aux'.
 
-
-No file thesis.bbl.
-
+ (./thesis.bbl
 
 [22
 
-] (./data/acknowledgements.tex (./bu.aux)) (./bu.aux)
+]
+
+[23
+
+
+])
+
+[24] (./data/acknowledgements.tex (./bu.aux)) (./bu.aux)
 File: scan-statement.pdf Graphic file (type pdf)
 <use scan-statement.pdf>
 File: scan-statement.pdf Graphic file (type pdf)
@@ -1643,7 +1568,7 @@ File: scan-statement.pdf Graphic file (type pdf)
 <use scan-statement.pdf, page 1>
 
 
-[23
+[25
 
 
 
@@ -1656,7 +1581,7 @@ File: scan-statement.pdf Graphic file (type pdf)
 
 File: scan-statement.pdf Graphic file (type pdf)
 <use scan-statement.pdf, page 1>
-[24
+[26
 
 ]
 File: scan-record.pdf Graphic file (type pdf)
@@ -1673,7 +1598,7 @@ File: scan-record.pdf Graphic file (type pdf)
 
 File: scan-record.pdf Graphic file (type pdf)
 <use scan-record.pdf, page 1>
-[25
+[27
 
 
 ]
@@ -1685,27 +1610,23 @@ File: scan-record.pdf Graphic file (type pdf)
 
 File: scan-record.pdf Graphic file (type pdf)
 <use scan-record.pdf, page 2>
-[26
+[28
 
-]
-
-Package natbib Warning: There were undefined citations.
-
-(./bu.aux) (./thesis.aux (./bu.aux))
+] (./bu.aux) (./thesis.aux (./bu.aux))
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2022/08/05>
  ***********
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 909CB38F90671A8D6845CEE85D9E45DE;5499.
+(rerunfilecheck)             Checksum: 55A99CECD3FC0048D334001E931B96E2;5662.
  ) 
 Here is how much of TeX's memory you used:
- 41618 strings out of 475381
- 903480 string characters out of 5762519
- 1362146 words of memory out of 5000000
- 63869 multiletter control sequences out of 15000+600000
- 567249 words of font info for 160 fonts, out of 8000000 for 9000
+ 41694 strings out of 475381
+ 905312 string characters out of 5762519
+ 1363864 words of memory out of 5000000
+ 63943 multiletter control sequences out of 15000+600000
+ 567241 words of font info for 159 fonts, out of 8000000 for 9000
  265 hyphenation exceptions out of 8191
  106i,17n,126p,1646b,2790s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on thesis.pdf (34 pages).
+Output written on thesis.pdf (37 pages).
